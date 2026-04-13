@@ -7,7 +7,7 @@ pub struct Escrow {
     pub nft_mint: Pubkey,
     pub amount: u64,
     pub deadline: i64,
-    pub state: u8, // 0=init, 1=funded, 2=completed, 3=refunded
+    pub state: u8, 
 }
 
 impl Escrow {

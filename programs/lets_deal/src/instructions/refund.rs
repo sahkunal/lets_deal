@@ -7,9 +7,8 @@ pub struct Refund<'info> {
     #[account(mut)]
     pub escrow: Account<'info, Escrow>,
 
-    /// CHECK: vault
     #[account(mut)]
-    pub vault: AccountInfo<'info>,
+    pub vault: UncheckedAccount<'info>,
 
     #[account(mut)]
     pub buyer: Signer<'info>,

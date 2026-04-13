@@ -1,47 +1,31 @@
 use anchor_lang::prelude::*;
-use anchor_lang::system_program;
+use anchor_lang::system_program::{transfer, Transfer};
 
-use crate::state::escrow::Escrow;
-use crate::errors::ErrorCode;
+use crate::state::Escrow;
 
-#[derive(Accounts)]
-pub struct DepositFunds<'info> {
-    #[account(mut)]
-    pub escrow: Account<'info, Escrow>,
-
-    #[account(mut)]
-    pub buyer: Signer<'info>,
-
-    #[account(
-        mut,
-        seeds = [b"vault", escrow.key().as_ref()],
-        bump
-    )]
-    pub vault: SystemAccount<'info>,
-
-    pub system_program: Program<'info, System>,
-}
-
-pub fn handler(ctx: Context<DepositFunds>) -> Result<()> {
-    let escrow = &mut ctx.accounts.escrow;
-
-    require!(escrow.state == 0, ErrorCode::InvalidState);
-
-    require!(
-        escrow.buyer == ctx.accounts.buyer.key(),
-        ErrorCode::Unauthorized
-    );
-
+pub fn handler(ctx: Context<DepositFunds>, amount: u64) -> Result<()> {
     let cpi_ctx = CpiContext::new(
-        ctx.accounts.system_program.to_account_info(),
-        system_program::Transfer {
+        ctx.accounts.system_program.key(),
+        Transfer {
             from: ctx.accounts.buyer.to_account_info(),
             to: ctx.accounts.vault.to_account_info(),
         },
     );
 
-    system_program::transfer(cpi_ctx, escrow.amount)?;
-    escrow.state = 1;
+    transfer(cpi_ctx, amount)?;
+    ctx.accounts.escrow.state = 1;
 
     Ok(())
+}
+
+#[derive(Accounts)]
+pub struct DepositFunds<'info> {
+    #[account(mut)]
+    pub escrow: Account<'info, Escrow>,
+    #[account(mut)]
+    pub buyer: Signer<'info>,
+    /// CHECK: vault PDA
+    #[account(mut)]
+    pub vault: UncheckedAccount<'info>,
+    pub system_program: Program<'info, System>,
 }

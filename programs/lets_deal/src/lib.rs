@@ -5,14 +5,12 @@ pub mod instructions;
 pub mod errors;
 pub mod constants;
 
-use instructions::*;
-
 declare_id!("8Hw3CnetkoDMGppgoTmWxW11LswHvnhVUMCu3hAsjZ64");
 
 #[program]
 pub mod lets_deal {
     use super::*;
-
+    
     pub fn initialize(
         ctx: Context<Initialize>,
         amount: u64,
@@ -22,8 +20,8 @@ pub mod lets_deal {
         instructions::initialize::handler(ctx, amount, deadline, nft_mint)
     }
 
-    pub fn deposit_funds(ctx: Context<DepositFunds>) -> Result<()> {
-        instructions::deposit_funds::handler(ctx)
+    pub fn deposit_funds(ctx: Context<DepositFunds>, amount: u64) -> Result<()> {
+        instructions::deposit_funds::handler(ctx, amount)
     }
 
     pub fn deposit_nft(ctx: Context<DepositNFT>) -> Result<()> {

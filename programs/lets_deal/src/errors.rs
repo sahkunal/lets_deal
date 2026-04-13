@@ -13,4 +13,7 @@ pub enum ErrorCode {
 
     #[msg("Deadline must be in future")]
     InvalidDeadline,
+
+    #[msg("Deadline not reached")]
+    TooEarly,
 }
