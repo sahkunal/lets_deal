@@ -65,7 +65,7 @@ pub mod lets_deal {
 
     pub fn execute_trade(ctx: Context<ExecuteTrade>) -> Result<()> {
         let escrow = &mut ctx.accounts.escrow;
-        require!(escrow.state == 1, ErrorCode::InvalidState);
+        require!(escrow.state == 2, ErrorCode::InvalidState);
         require!(escrow.seller == ctx.accounts.seller.key(), ErrorCode::Unauthorized);
         let escrow_key = escrow.key();
         let seeds = &[b"vault", escrow_key.as_ref(), &[ctx.bumps.vault]];
@@ -91,6 +91,7 @@ pub mod lets_deal {
             &[
                 ctx.accounts.vault.to_account_info(),
                 ctx.accounts.seller.to_account_info(),
+                ctx.accounts.system_program.to_account_info(),
             ],
             signer,
         )?;
@@ -169,6 +170,7 @@ pub struct ExecuteTrade<'info> {
     #[account(mut)]
     pub buyer_nft_account: Account<'info, TokenAccount>,
     pub token_program: Program<'info, Token>,
+    pub system_program: Program<'info, System>,
 }
 
 #[derive(Accounts)]
