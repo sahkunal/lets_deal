@@ -123,10 +123,10 @@ describe("lets_deal", () => {
       .accounts({
         escrow: escrow.publicKey,
         seller: seller.publicKey,
-        sellerNftAccount,
+        seller_nft_account: sellerNftAccount,
         vault: vaultPda,
-        vaultNftAccount,
-        tokenProgram: TOKEN_PROGRAM_ID,
+        vault_nft_account: vaultNftAccount,
+        token_program: TOKEN_PROGRAM_ID,
       })
       .signers([seller])
       .rpc();
@@ -141,13 +141,13 @@ describe("lets_deal", () => {
   .executeTrade()
   .accounts({
     escrow: escrow.publicKey,
-    vault: vaultPda,
+   // vault: vaultPda,
     seller: seller.publicKey,
     buyer: buyer.publicKey,
-    vaultNftAccount,
+     vault_nft_account: vaultNftAccount,
     buyerNftAccount,
-    tokenProgram: TOKEN_PROGRAM_ID,
-    systemProgram: SystemProgram.programId,
+    token_program: TOKEN_PROGRAM_ID,
+    system_program: SystemProgram.programId,
   })
   .rpc();
 
@@ -170,10 +170,10 @@ describe("lets_deal", () => {
       .initialize(amount, deadline, nftMint)
       .accounts({
         escrow: refundEscrow.publicKey,
-        vault: refundVault,
+        //vault: refundVault,
         buyer: buyer.publicKey,
         seller: seller.publicKey,
-        systemProgram: SystemProgram.programId,
+       system_program: SystemProgram.programId,
       })
       .signers([refundEscrow])
       .rpc();
@@ -183,8 +183,8 @@ describe("lets_deal", () => {
       .accounts({
         escrow: refundEscrow.publicKey,
         buyer: buyer.publicKey,
-        vault: refundVault,
-        systemProgram: SystemProgram.programId,
+        //vault: refundVault,
+        system_program: SystemProgram.programId,
       })
       .rpc();
 
@@ -195,7 +195,7 @@ describe("lets_deal", () => {
       .refund()
       .accounts({
         escrow: refundEscrow.publicKey,
-        vault: refundVault,
+       // vault: refundVault,
         buyer: buyer.publicKey,
       })
       .rpc();

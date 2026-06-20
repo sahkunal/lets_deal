@@ -1,18 +1,18 @@
 [toolchain]
-package_manager = "yarn"
-anchor_version = "0.30.1"
+anchor_version = "1.0.2"
+
 [features]
 resolution = true
 skip-lint = false
 
 [programs.devnet]
-lets_deal = "FxtUUx1J4NiWoLtpaqstk9obhEdVMjaCth4UwfSuRC6F"
+lets_deal = "FzwhoLmFm8avMRpgwTL5mWiC8oi8RSqkbDdYBU7SeQj"
 
 [registry]
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "devnet"
+cluster = "Devnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
