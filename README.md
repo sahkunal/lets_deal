@@ -23,17 +23,6 @@ LetsDeal is a **trustless escrow system** where:
 * Trades execute only when **on-chain conditions are satisfied**
 * Refunds are enforced automatically
 
----
-
-## 🎥 Demo
-
-> ⚠️ Add your demo GIF here
-
-```md id="demoimg"
-![Demo](./assets/demo.gif)
-```
-
----
 
 ## 🧠 Core Logic
 
