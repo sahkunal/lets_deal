@@ -4,7 +4,7 @@ import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
 import {
   PhantomWalletAdapter,
   SolflareWalletAdapter,
-  BackpackWalletAdapter,
+  // BackpackWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { RPC_URL } from "../constants";
 
@@ -17,7 +17,7 @@ export const WalletContextProvider: FC<{ children: ReactNode }> = ({
     () => [
       new PhantomWalletAdapter(),
       new SolflareWalletAdapter(),
-      new BackpackWalletAdapter(),
+      // new BackpackWalletAdapter(),
     ],
     []
   );
