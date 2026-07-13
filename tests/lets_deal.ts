@@ -88,10 +88,8 @@ describe("lets_deal", () => {
       .initialize(amount, deadline, nftMint)
       .accounts({
         escrow: escrow.publicKey,
-        vault: vaultPda,
         buyer: buyer.publicKey,
         seller: seller.publicKey,
-        systemProgram: SystemProgram.programId,
       })
       .signers([escrow])
       .rpc();
@@ -107,8 +105,6 @@ describe("lets_deal", () => {
       .accounts({
         escrow: escrow.publicKey,
         buyer: buyer.publicKey,
-        vault: vaultPda,
-        systemProgram: SystemProgram.programId,
       })
       .rpc();
 
@@ -121,13 +117,11 @@ describe("lets_deal", () => {
     const tx = await program.methods
       .depositNft()
       .accounts({
-        escrow: escrow.publicKey,
-        seller: seller.publicKey,
-        seller_nft_account: sellerNftAccount,
-        vault: vaultPda,
-        vault_nft_account: vaultNftAccount,
-        token_program: TOKEN_PROGRAM_ID,
-      })
+  escrow: escrow.publicKey,
+  seller: seller.publicKey,
+  sellerNftAccount: sellerNftAccount,
+  vaultNftAccount: vaultNftAccount,
+})
       .signers([seller])
       .rpc();
 
@@ -140,15 +134,12 @@ describe("lets_deal", () => {
     const tx = await program.methods
   .executeTrade()
   .accounts({
-    escrow: escrow.publicKey,
-   // vault: vaultPda,
-    seller: seller.publicKey,
-    buyer: buyer.publicKey,
-     vault_nft_account: vaultNftAccount,
-    buyerNftAccount,
-    token_program: TOKEN_PROGRAM_ID,
-    system_program: SystemProgram.programId,
-  })
+  escrow: escrow.publicKey,
+  seller: seller.publicKey,
+  buyer: buyer.publicKey,
+  vaultNftAccount: vaultNftAccount,
+  buyerNftAccount: buyerNftAccount,
+})
   .rpc();
 
     console.log("ExecuteTrade tx:", tx);
@@ -173,7 +164,7 @@ describe("lets_deal", () => {
         //vault: refundVault,
         buyer: buyer.publicKey,
         seller: seller.publicKey,
-       system_program: SystemProgram.programId,
+      //  system_program: SystemProgram.programId,
       })
       .signers([refundEscrow])
       .rpc();
@@ -184,7 +175,7 @@ describe("lets_deal", () => {
         escrow: refundEscrow.publicKey,
         buyer: buyer.publicKey,
         //vault: refundVault,
-        system_program: SystemProgram.programId,
+        // system_program: SystemProgram.programId,
       })
       .rpc();
 
