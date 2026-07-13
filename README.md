@@ -111,7 +111,31 @@ lets_deal/
 * ⚡ Real-time interaction
 
 ---
+## 🚀 Deployment
 
+The program has been successfully deployed on **Solana Devnet**.
+
+### Program ID
+
+```text
+FzwhoLmFm8avMRpgwTL5mWiC8oi8RSqkbDdYBU7SeQj
+```
+
+### IDL Metadata
+
+```text
+Metadata PDA : Ba7ykesZrMTGyGkn2mVmGNrj2swWaMDq1BQnpGkN9DzH
+Seed         : idl
+```
+
+### Deployment Details
+
+| Network | Devnet |
+|----------|---------|
+| Program ID | `FzwhoLmFm8avMRpgwTL5mWiC8oi8RSqkbDdYBU7SeQj` |
+| IDL Metadata PDA | `Ba7ykesZrMTGyGkn2mVmGNrj2swWaMDq1BQnpGkN9DzH` |
+
+---
 ## ⚙️ Setup
 
 ### 📦 Install
