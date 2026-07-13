@@ -12,7 +12,7 @@ lets_deal = "FzwhoLmFm8avMRpgwTL5mWiC8oi8RSqkbDdYBU7SeQj"
 url = "https://api.apr.dev"
 
 [provider]
-cluster = "Devnet"
+cluster = "Localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
