@@ -7,6 +7,7 @@
 [![Anchor Framework](https://img.shields.io/badge/Anchor-v1.0.2-2D7DD2?style=for-the-badge&logo=rust&logoColor=white)](https://www.anchor-lang.com/)
 [![React / Vite](https://img.shields.io/badge/Frontend-React%2018%20%7C%20Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](./letsdeal-frontend)
 [![Txtx DevOps](https://img.shields.io/badge/DevOps-Txtx%20Runbooks-38bdf8?style=for-the-badge)](https://txtx.sh)
+[![Branch: dev](https://img.shields.io/badge/Branch-dev-purple?style=for-the-badge&logo=git)](https://github.com/sahkunal/lets_deal/tree/dev)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
 
 <p align="center">
@@ -21,9 +22,10 @@
 [Instructions Deep Dive](#-instruction-specifications) •
 [Account Layouts](#-account-structures--memory-layout) •
 [Frontend dApp](#-frontend-client-architecture) •
-[Testing & Verification](#-testing--verification) •
-[Deployment](#-deployment--on-chain-artifacts) •
-[Getting Started](#-developer-quickstart)
+[Testing & Simulation](#-testing--simulation) •
+[Deployment (Anchor & Txtx)](#-deployment--on-chain-artifacts) •
+[Git & Branching Workflow](#-git--branching-workflow) •
+[Developer Quickstart](#-developer-quickstart)
 
 ---
 
@@ -50,8 +52,9 @@ Traditional OTC (over-the-counter) Web3 trades require a trusted third-party int
     │                    │                     │                         │
     │           [ Both Deposited ]      [ Deadline Passed ]              │
     │                    │                     │                         │
-    ▼                    ▼                     ▼                         ▼
-(Receives NFT) ◄─ Execute Trade           Refund SOL ──────────► (Receives SOL)
+    │                    ▼                     ▼                         │
+    ▼             Execute Trade           Refund SOL                     ▼
+(Receives NFT) ◄───────────────────────────────────────────────► (Receives SOL)
 ```
 
 ---
@@ -295,6 +298,8 @@ lets_deal/
 ├── runbooks/
 │   ├── README.md                        → Txtx infrastructure documentation
 │   └── deployment/                      → Txtx on-chain deployment runbooks
+│       ├── main.tx                      → Infrastructure-as-code Solana program deployer
+│       └── signers.devnet.tx            → Devnet signer bindings
 │
 ├── Anchor.toml                          → Anchor workspace configuration
 ├── Cargo.toml                           → Rust workspace configuration
@@ -314,9 +319,18 @@ The frontend (`letsdeal-frontend/`) is engineered for speed, resilience, and zer
   - `/buyer`: Generate new escrow, deposit SOL, monitor NFT deposit, trigger execution, or claim refund if expired.
   - `/seller`: Load escrow by address, verify locked SOL, deposit NFT into vault, and execute trade.
 
+### Environment Configuration
+
+In `letsdeal-frontend/.env`:
+
+| Variable | Default Value | Description |
+| :--- | :--- | :--- |
+| `VITE_RPC_URL` | `https://api.devnet.solana.com` | Custom RPC endpoint (Helius / QuickNode recommended). |
+| `VITE_CLUSTER_LABEL` | `devnet` | Cluster label used for Solana Explorer transaction linking. |
+
 ---
 
-## 🧪 Testing & Verification
+## 🧪 Testing & Simulation
 
 The protocol features an exhaustive test suite in [`tests/lets_deal.ts`](file:///c:/Users/arpit/lets_deal/tests/lets_deal.ts) verifying all happy paths and edge cases:
 
@@ -337,6 +351,15 @@ anchor test
   <p><i>Figure 1: Complete Anchor integration test suite executing with 100% pass rate.</i></p>
 </div>
 
+### Local Simulation & Surfpool Execution Details
+
+Transactions and CPI interactions can be simulated and analyzed with Surfpool:
+
+<div align="center">
+  <img src="./surfpool%20tx%20details.png" alt="Surfpool Transaction Details" width="800px" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" />
+  <p><i>Figure 2: Surfpool transaction log inspector showing instruction execution trace.</i></p>
+</div>
+
 ---
 
 ## 🚀 Deployment & On-Chain Artifacts
@@ -353,8 +376,54 @@ The program is live and verified on **Solana Devnet**.
 
 <div align="center">
   <img src="./lets_deal%20deploy%20devnet.png" alt="Solana Devnet Deployment" width="800px" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);" />
-  <p><i>Figure 2: Successful program deployment and IDL buffer initialization on Solana Devnet.</i></p>
+  <p><i>Figure 3: Successful program deployment and IDL buffer initialization on Solana Devnet.</i></p>
 </div>
+
+### Infrastructure-as-Code Deployment with Txtx
+
+Deployments can also be executed via reproducible [Txtx](https://txtx.sh) runbooks:
+
+```bash
+# Execute deployment runbook on devnet
+txtx run deployment --env devnet
+```
+
+---
+
+## 🌿 Git & Branching Workflow
+
+We utilize a structured Git branching strategy to keep `main` production-ready and stable:
+
+```text
+main (Production / Stable Releases)
+  │
+  └── dev (Active Development / Integration)
+        │
+        ├── feature/new-token-standard
+        ├── fix/refund-deadline-check
+        └── docs/api-updates
+```
+
+### Branch Management Commands
+
+```bash
+# Switch to the dev branch
+git checkout dev
+
+# Create a new feature branch off dev
+git checkout -b feat/your-feature-name
+
+# Commit your changes
+git add .
+git commit -m "feat: implement escrow partial refund"
+
+# Push to your branch
+git push -u origin feat/your-feature-name
+
+# Merge feature into dev (after review/tests)
+git checkout dev
+git merge feat/your-feature-name
+```
 
 ---
 
@@ -371,6 +440,9 @@ The program is live and verified on **Solana Devnet**.
 # Clone the repository
 git clone https://github.com/sahkunal/lets_deal.git
 cd lets_deal
+
+# Checkout active dev branch
+git checkout dev
 
 # Install root dependencies
 yarn install
