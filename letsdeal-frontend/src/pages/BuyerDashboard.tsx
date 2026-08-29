@@ -71,8 +71,11 @@ export const BuyerDashboard: FC = () => {
   const updateLog = (id: string, patch: Partial<TxLogEntry>) =>
     setLogs((l) => l.map((e) => (e.id === id ? { ...e, ...patch } : e)));
 
-  async function runTx(label: string, build: () => Promise<Transaction>) {
-    if (!publicKey) return;
+  async function runTx(
+    label: string,
+    build: () => Promise<Transaction>
+  ): Promise<boolean> {
+    if (!publicKey) return false;
     const id = crypto.randomUUID();
     pushLog({ id, label, status: "pending" });
     try {
@@ -81,11 +84,14 @@ export const BuyerDashboard: FC = () => {
       await connection.confirmTransaction(sig, "confirmed");
       updateLog(id, { status: "confirmed", sig });
       refresh();
+      return true;
     } catch (e) {
+      console.error("runTx failed:", label, e);
       updateLog(id, {
         status: "error",
         error: e instanceof Error ? e.message : "transaction failed",
       });
+      return false;
     } finally {
       setBusy(null);
     }
@@ -101,17 +107,37 @@ export const BuyerDashboard: FC = () => {
     publicKey && sellerInput.length > 30 && mintInput.length > 30 && +amountInput > 0;
 
   async function createDeal() {
-    if (!publicKey || !canCreate) return;
+    console.log("createDeal called", { publicKey: publicKey?.toBase58(), canCreate, sellerInput, mintInput, amountInput });
+    if (!publicKey || !canCreate) {
+      console.log("createDeal bailed early", { hasPublicKey: !!publicKey, canCreate });
+      return;
+    }
+
+    let seller: PublicKey;
+    let nftMint: PublicKey;
+    try {
+      seller = new PublicKey(sellerInput.trim());
+      nftMint = new PublicKey(mintInput.trim());
+    } catch (e) {
+      console.error("createDeal: invalid address", e, { sellerInput, mintInput });
+      pushLog({
+        id: crypto.randomUUID(),
+        label: "initialize escrow",
+        status: "error",
+        error:
+          "Invalid seller address or NFT mint address — check for extra spaces or hidden characters and try re-pasting.",
+      });
+      return;
+    }
+
     setBusy("create");
     const escrowKeypair = Keypair.generate();
-    const seller = new PublicKey(sellerInput.trim());
-    const nftMint = new PublicKey(mintInput.trim());
     const amountLamports = new BN(Math.round(+amountInput * LAMPORTS_PER_SOL));
     const deadline = new BN(
       Math.floor(Date.now() / 1000) + Math.round(+hoursInput * 3600)
     );
 
-    await runTx("initialize escrow", async () => {
+    const ok = await runTx("initialize escrow", async () => {
       const ix = buildInitializeIx({
         escrow: escrowKeypair.publicKey,
         buyer: publicKey,
@@ -121,13 +147,17 @@ export const BuyerDashboard: FC = () => {
         nftMint,
       });
       const tx = new Transaction().add(ix);
+      const { blockhash } = await connection.getLatestBlockhash();
+      tx.recentBlockhash = blockhash;
       tx.feePayer = publicKey;
       tx.partialSign(escrowKeypair);
       return tx;
     });
 
-    setEscrowAddress(escrowKeypair.publicKey.toBase58());
-    saveEscrow(escrowKeypair.publicKey.toBase58());
+    if (ok) {
+      setEscrowAddress(escrowKeypair.publicKey.toBase58());
+      saveEscrow(escrowKeypair.publicKey.toBase58());
+    }
   }
 
   async function depositFunds() {
