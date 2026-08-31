@@ -10,18 +10,12 @@ import {
 import BN from 'bn.js';
 import { 
   ArrowDown, 
-  Clock, 
   ExternalLink, 
   Check, 
   Copy, 
   Sparkles, 
   Trash2,
-  ShieldCheck,
-  Search,
-  RefreshCw,
-  Coins,
-  Lock,
-  ArrowRightLeft
+  ShieldCheck
 } from 'lucide-react';
 import { SolanaNavbar } from '../components/SolanaNavbar';
 import { SolanaFooter } from '../components/SolanaFooter';
@@ -37,7 +31,7 @@ import {
   buildRefundIx,
 } from '../lib/instructions';
 import { resolveAta } from '../lib/ata';
-import { explorerAddress, explorerTx, PROGRAM_ID, SAMPLE_DEVNET_PRESETS } from '../constants';
+import { explorerAddress, explorerTx, SAMPLE_DEVNET_PRESETS } from '../constants';
 
 const STORAGE_KEY = 'letsdeal:recent:deals';
 
@@ -96,7 +90,6 @@ export const AppPage: FC = () => {
     setHours(SAMPLE_DEVNET_PRESETS[0].hours);
   };
 
-  // Helper to run transactions
   async function runTx(label: string, action: () => Promise<Transaction>) {
     if (!publicKey) return;
     setTxError(null);
@@ -237,34 +230,34 @@ export const AppPage: FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#000000] text-slate-100 flex flex-col justify-between selection:bg-[#14F195]/20 selection:text-[#14F195]">
+    <div className="min-h-screen bg-[#000000] text-white flex flex-col justify-between selection:bg-white selection:text-black">
       <div>
         <SolanaNavbar />
 
         <main className="max-w-xl mx-auto px-4 pt-12 pb-20">
           
           {/* Main Card Container */}
-          <div className="bg-[#0A0B0E] border border-white/[0.08] rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+          <div className="bg-[#08080A] border border-[#1E1E26] rounded-2xl p-6 sm:p-8 space-y-6">
             
             {/* Header Tabs */}
-            <div className="flex items-center justify-between border-b border-white/[0.08] pb-4">
-              <div className="flex items-center gap-1 bg-[#141720] p-1 rounded-2xl border border-white/[0.06]">
+            <div className="flex items-center justify-between border-b border-[#1A1A22] pb-4">
+              <div className="flex items-center gap-1 bg-[#101014] p-1 rounded-xl border border-[#22222A]">
                 <button
                   onClick={() => setTab('create')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                     tab === 'create'
-                      ? 'bg-gradient-to-r from-[#9945FF] to-[#14F195] text-slate-950 shadow-md'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-white text-black'
+                      : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   Create Deal
                 </button>
                 <button
                   onClick={() => setTab('manage')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                     tab === 'manage'
-                      ? 'bg-gradient-to-r from-[#9945FF] to-[#14F195] text-slate-950 shadow-md'
-                      : 'text-slate-400 hover:text-white'
+                      ? 'bg-white text-black'
+                      : 'text-zinc-400 hover:text-white'
                   }`}
                 >
                   Deal Status
@@ -273,8 +266,8 @@ export const AppPage: FC = () => {
 
               <button
                 onClick={() => setTab('history')}
-                className={`text-xs font-mono px-3 py-1.5 rounded-xl transition-colors ${
-                  tab === 'history' ? 'text-[#14F195] bg-[#14F195]/10' : 'text-slate-400 hover:text-white'
+                className={`text-xs font-mono px-3 py-1.5 rounded-lg transition-colors ${
+                  tab === 'history' ? 'text-white bg-[#14141A]' : 'text-zinc-500 hover:text-zinc-300'
                 }`}
               >
                 Saved ({savedDeals.length})
@@ -283,24 +276,24 @@ export const AppPage: FC = () => {
 
             {/* TAB 1: CREATE DEAL */}
             {tab === 'create' && (
-              <div className="space-y-5">
+              <div className="space-y-4">
                 
                 {/* Sample Fill Button */}
-                <div className="flex items-center justify-between text-xs text-slate-400">
-                  <span>Buyer locks SOL, Seller sends NFT</span>
+                <div className="flex items-center justify-between text-xs text-zinc-400">
+                  <span>Buyer locks SOL, Seller deposits NFT</span>
                   <button
                     type="button"
                     onClick={handleFillSample}
-                    className="text-[#14F195] hover:underline flex items-center gap-1 text-[11px] font-mono"
+                    className="text-zinc-300 hover:text-white hover:underline flex items-center gap-1 text-[11px] font-mono"
                   >
-                    <Sparkles className="w-3.5 h-3.5" />
+                    <Sparkles className="w-3.5 h-3.5 text-zinc-400" />
                     <span>Fill Test Data</span>
                   </button>
                 </div>
 
                 {/* Amount Box */}
-                <div className="bg-[#12151D] border border-white/[0.08] rounded-2xl p-4 space-y-1">
-                  <div className="text-[11px] font-mono text-slate-400">You Pay (SOL)</div>
+                <div className="bg-[#0E0E12] border border-[#22222A] rounded-xl p-4 space-y-1">
+                  <div className="text-[11px] font-mono text-zinc-500">You Pay (SOL)</div>
                   <div className="flex items-center justify-between gap-2">
                     <input
                       type="number"
@@ -309,9 +302,9 @@ export const AppPage: FC = () => {
                       placeholder="0.00"
                       value={amount}
                       onChange={(e) => setAmount(e.target.value)}
-                      className="w-full bg-transparent text-3xl font-extrabold text-white outline-none"
+                      className="w-full bg-transparent text-3xl font-bold text-white outline-none"
                     />
-                    <span className="px-3 py-1.5 rounded-xl bg-white/[0.08] text-xs font-mono font-bold text-[#14F195]">
+                    <span className="px-2.5 py-1 rounded-md bg-[#181820] text-xs font-mono font-semibold text-zinc-200">
                       SOL
                     </span>
                   </div>
@@ -319,47 +312,47 @@ export const AppPage: FC = () => {
 
                 {/* Arrow Divider */}
                 <div className="flex justify-center -my-2">
-                  <div className="w-8 h-8 rounded-full bg-[#161A24] border border-white/[0.08] flex items-center justify-center text-slate-400">
-                    <ArrowDown className="w-4 h-4" />
+                  <div className="w-7 h-7 rounded-full bg-[#121216] border border-[#24242E] flex items-center justify-center text-zinc-400">
+                    <ArrowDown className="w-3.5 h-3.5" />
                   </div>
                 </div>
 
                 {/* Seller & NFT Details */}
-                <div className="space-y-3.5 bg-[#12151D] border border-white/[0.08] rounded-2xl p-4 font-mono text-xs">
+                <div className="space-y-3 bg-[#0E0E12] border border-[#22222A] rounded-xl p-4 font-mono text-xs">
                   <div>
-                    <label className="text-slate-400 block mb-1 text-[11px]">
-                      SELLER WALLET ADDRESS
+                    <label className="text-zinc-500 block mb-1 text-[10px] uppercase">
+                      Seller Solana Address
                     </label>
                     <input
                       type="text"
-                      placeholder="e.g. 4Tzz...SellerSolanaAddress"
+                      placeholder="4Tzz...SellerAddress"
                       value={seller}
                       onChange={(e) => setSeller(e.target.value)}
-                      className="w-full bg-[#0A0B0E] border border-white/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 outline-none focus:border-[#14F195]"
+                      className="w-full bg-[#070709] border border-[#202028] rounded-lg px-3 py-2 text-xs text-white placeholder-zinc-600 outline-none focus:border-zinc-400"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1 text-[11px]">
-                      NFT MINT ADDRESS (SPL TOKEN)
+                    <label className="text-zinc-500 block mb-1 text-[10px] uppercase">
+                      NFT Mint Address (SPL Token)
                     </label>
                     <input
                       type="text"
-                      placeholder="e.g. EPjF...NFTMintAddress"
+                      placeholder="EPjF...MintAddress"
                       value={mint}
                       onChange={(e) => setMint(e.target.value)}
-                      className="w-full bg-[#0A0B0E] border border-white/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 outline-none focus:border-[#14F195]"
+                      className="w-full bg-[#070709] border border-[#202028] rounded-lg px-3 py-2 text-xs text-white placeholder-zinc-600 outline-none focus:border-zinc-400"
                     />
                   </div>
 
                   <div>
-                    <label className="text-slate-400 block mb-1 text-[11px]">
-                      TIMEOUT DEADLINE
+                    <label className="text-zinc-500 block mb-1 text-[10px] uppercase">
+                      Timeout Deadline
                     </label>
                     <select
                       value={hours}
                       onChange={(e) => setHours(e.target.value)}
-                      className="w-full bg-[#0A0B0E] border border-white/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-white outline-none focus:border-[#14F195] cursor-pointer"
+                      className="w-full bg-[#070709] border border-[#202028] rounded-lg px-3 py-2 text-xs text-white outline-none focus:border-zinc-400 cursor-pointer"
                     >
                       <option value="1">1 Hour</option>
                       <option value="6">6 Hours</option>
@@ -373,14 +366,14 @@ export const AppPage: FC = () => {
                 <button
                   disabled={!publicKey || !seller || !mint || busy === 'create'}
                   onClick={handleCreate}
-                  className="w-full py-4 rounded-2xl bg-gradient-to-r from-[#9945FF] via-[#00C2FF] to-[#14F195] hover:opacity-95 text-slate-950 font-bold text-sm uppercase tracking-wider transition-all disabled:opacity-30 disabled:pointer-events-none cursor-pointer shadow-xl shadow-[#14F195]/20"
+                  className="w-full py-3.5 rounded-xl bg-white hover:bg-zinc-200 text-black font-semibold text-xs uppercase tracking-wider transition-colors disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
                 >
                   {busy === 'create' ? 'Initializing On-Chain...' : 'Deploy Escrow Deal →'}
                 </button>
 
                 {!publicKey && (
-                  <p className="text-xs font-mono text-slate-400 text-center">
-                    Connect your Phantom / Solflare wallet in top navbar to start.
+                  <p className="text-xs font-mono text-zinc-500 text-center">
+                    Connect your wallet in the top navbar to start.
                   </p>
                 )}
 
@@ -398,7 +391,7 @@ export const AppPage: FC = () => {
                     placeholder="Paste deal address..."
                     value={inputAddress}
                     onChange={(e) => setInputAddress(e.target.value)}
-                    className="flex-1 bg-[#12151D] border border-white/[0.08] rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 outline-none focus:border-[#14F195]"
+                    className="flex-1 bg-[#0E0E12] border border-[#22222A] rounded-xl px-3.5 py-2 text-xs text-white placeholder-zinc-600 outline-none focus:border-zinc-400"
                   />
                   <button
                     onClick={() => {
@@ -408,7 +401,7 @@ export const AppPage: FC = () => {
                       }
                     }}
                     disabled={inputAddress.trim().length < 32}
-                    className="px-4 py-2.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.14] text-white text-xs font-bold disabled:opacity-30 transition-colors"
+                    className="px-4 py-2 rounded-xl bg-[#181820] hover:bg-[#22222C] text-white text-xs font-semibold disabled:opacity-30 transition-colors"
                   >
                     Open
                   </button>
@@ -418,38 +411,38 @@ export const AppPage: FC = () => {
                   <div className="space-y-4 pt-1 font-mono">
                     
                     {/* Status Pill Card */}
-                    <div className="bg-[#12151D] border border-white/[0.08] rounded-2xl p-4 space-y-3 text-xs">
+                    <div className="bg-[#0E0E12] border border-[#22222A] rounded-xl p-4 space-y-3 text-xs">
                       <div className="flex items-center justify-between">
-                        <span className="text-slate-400">STATE</span>
-                        <span className="px-2.5 py-0.5 rounded-full bg-[#14F195]/15 text-[#14F195] font-bold text-xs border border-[#14F195]/30">
+                        <span className="text-zinc-500">STATE</span>
+                        <span className="px-2.5 py-0.5 rounded-md bg-[#181820] text-zinc-200 font-semibold text-xs border border-[#262632]">
                           {EscrowStateLabel[escrow.state] || 'Active'}
                         </span>
                       </div>
 
                       <div className="flex items-center justify-between text-sm">
-                        <span className="text-slate-400">LOCKED AMOUNT:</span>
-                        <span className="font-extrabold text-white">
+                        <span className="text-zinc-500">LOCKED AMOUNT:</span>
+                        <span className="font-bold text-white">
                           {(escrow.amount.toNumber() / LAMPORTS_PER_SOL).toFixed(3)} SOL
                         </span>
                       </div>
 
-                      <div className="flex items-center justify-between text-xs text-slate-400">
+                      <div className="flex items-center justify-between text-xs text-zinc-400">
                         <span>TIMEOUT DEADLINE:</span>
-                        <span className={countdown.expired ? 'text-rose-400 font-bold' : 'text-slate-200'}>
+                        <span className={countdown.expired ? 'text-zinc-300 font-semibold' : 'text-zinc-300'}>
                           {countdown.label}
                         </span>
                       </div>
 
                       {/* Share Deal Address */}
-                      <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between text-xs">
-                        <span className="text-slate-400 truncate max-w-[200px]">
+                      <div className="pt-2 border-t border-[#1C1C26] flex items-center justify-between text-xs">
+                        <span className="text-zinc-500 truncate max-w-[200px]">
                           {escrow.address.toBase58().slice(0, 8)}...{escrow.address.toBase58().slice(-8)}
                         </span>
                         <button
                           onClick={copyDealLink}
-                          className="text-[#14F195] hover:underline flex items-center gap-1 font-bold"
+                          className="text-zinc-300 hover:text-white hover:underline flex items-center gap-1 font-medium"
                         >
-                          {copiedLink ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
+                          {copiedLink ? <Check className="w-3.5 h-3.5 text-white" /> : <Copy className="w-3.5 h-3.5" />}
                           <span>{copiedLink ? 'Copied' : 'Copy Deal Link'}</span>
                         </button>
                       </div>
@@ -461,7 +454,7 @@ export const AppPage: FC = () => {
                         <button
                           disabled={!isBuyer || busy === 'deposit-sol'}
                           onClick={handleDepositSol}
-                          className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#9945FF] to-[#14F195] text-slate-950 font-bold text-xs uppercase disabled:opacity-30 cursor-pointer transition-all shadow-md shadow-[#14F195]/15"
+                          className="w-full py-3 rounded-xl bg-white hover:bg-zinc-200 text-black font-semibold text-xs uppercase disabled:opacity-30 cursor-pointer transition-colors"
                         >
                           {busy === 'deposit-sol' ? 'Depositing SOL...' : isBuyer ? '1. Deposit SOL into Vault PDA' : 'Waiting for Buyer to deposit SOL'}
                         </button>
@@ -471,7 +464,7 @@ export const AppPage: FC = () => {
                         <button
                           disabled={!isSeller || busy === 'deposit-nft'}
                           onClick={handleDepositNft}
-                          className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#00C2FF] to-[#14F195] text-slate-950 font-bold text-xs uppercase disabled:opacity-30 cursor-pointer transition-all shadow-md shadow-[#14F195]/15"
+                          className="w-full py-3 rounded-xl bg-white hover:bg-zinc-200 text-black font-semibold text-xs uppercase disabled:opacity-30 cursor-pointer transition-colors"
                         >
                           {busy === 'deposit-nft' ? 'Depositing NFT...' : isSeller ? '2. Deposit NFT into Vault' : 'Waiting for Seller to deposit NFT'}
                         </button>
@@ -481,7 +474,7 @@ export const AppPage: FC = () => {
                         <button
                           disabled={busy === 'settle'}
                           onClick={handleSettle}
-                          className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#9945FF] via-[#00C2FF] to-[#14F195] text-slate-950 font-bold text-xs uppercase disabled:opacity-30 cursor-pointer transition-all shadow-md shadow-[#14F195]/20"
+                          className="w-full py-3 rounded-xl bg-white hover:bg-zinc-200 text-black font-semibold text-xs uppercase disabled:opacity-30 cursor-pointer transition-colors"
                         >
                           {busy === 'settle' ? 'Settling Atomic Swap...' : '3. Settle Swap & Claim Assets'}
                         </button>
@@ -491,20 +484,20 @@ export const AppPage: FC = () => {
                         <button
                           disabled={busy === 'refund'}
                           onClick={handleRefund}
-                          className="w-full py-3.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase cursor-pointer transition-all shadow-md shadow-rose-900/30"
+                          className="w-full py-3 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-semibold text-xs uppercase cursor-pointer transition-colors border border-zinc-700"
                         >
                           {busy === 'refund' ? 'Claiming Refund...' : 'Claim 100% SOL Refund'}
                         </button>
                       )}
                     </div>
 
-                    {/* Solscan Link */}
+                    {/* Explorer Link */}
                     <div className="text-center pt-1">
                       <a
                         href={explorerAddress(escrow.address.toBase58())}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-[11px] text-slate-400 hover:text-[#14F195] transition-colors inline-flex items-center gap-1"
+                        className="text-[11px] text-zinc-500 hover:text-white transition-colors inline-flex items-center gap-1"
                       >
                         <span>View On-Chain on Solana Explorer</span>
                         <ExternalLink className="w-3 h-3" />
@@ -513,7 +506,7 @@ export const AppPage: FC = () => {
 
                   </div>
                 ) : (
-                  <div className="py-8 text-center text-xs font-mono text-slate-500">
+                  <div className="py-8 text-center text-xs font-mono text-zinc-500">
                     No active escrow deal loaded.
                   </div>
                 )}
@@ -524,15 +517,15 @@ export const AppPage: FC = () => {
             {/* TAB 3: SAVED DEALS */}
             {tab === 'history' && (
               <div className="space-y-3 font-mono">
-                <div className="flex items-center justify-between text-xs text-slate-400 pb-1 border-b border-white/[0.06]">
-                  <span>Your Recent Deals</span>
+                <div className="flex items-center justify-between text-xs text-zinc-400 pb-1 border-b border-[#1C1C26]">
+                  <span>Recent Deals</span>
                   {savedDeals.length > 0 && (
                     <button
                       onClick={() => {
                         setSavedDeals([]);
                         localStorage.removeItem(STORAGE_KEY);
                       }}
-                      className="text-rose-400 hover:underline text-[10px]"
+                      className="text-zinc-500 hover:text-zinc-300 hover:underline text-[10px]"
                     >
                       Clear All
                     </button>
@@ -540,7 +533,7 @@ export const AppPage: FC = () => {
                 </div>
 
                 {savedDeals.length === 0 ? (
-                  <div className="py-8 text-center text-xs text-slate-500">
+                  <div className="py-8 text-center text-xs text-zinc-500">
                     No saved deals yet.
                   </div>
                 ) : (
@@ -552,19 +545,19 @@ export const AppPage: FC = () => {
                           setEscrowAddress(addr);
                           setTab('manage');
                         }}
-                        className="flex items-center justify-between p-3 rounded-xl bg-[#12151D] hover:bg-[#181C26] border border-white/[0.06] text-xs cursor-pointer transition-colors"
+                        className="flex items-center justify-between p-3 rounded-xl bg-[#0E0E12] hover:bg-[#14141A] border border-[#1E1E26] text-xs cursor-pointer transition-colors"
                       >
-                        <span className="text-slate-200 truncate mr-2">
+                        <span className="text-zinc-300 truncate mr-2">
                           {addr.slice(0, 10)}...{addr.slice(-8)}
                         </span>
                         <div className="flex items-center gap-2">
                           <button
                             onClick={(e) => removeDeal(addr, e)}
-                            className="text-slate-500 hover:text-rose-400 p-1"
+                            className="text-zinc-500 hover:text-zinc-300 p-1"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
-                          <span className="text-[#14F195] font-bold">Open →</span>
+                          <span className="text-white font-medium">Open →</span>
                         </div>
                       </div>
                     ))}
@@ -575,13 +568,13 @@ export const AppPage: FC = () => {
 
             {/* Notification messages */}
             {txSig && (
-              <div className="p-3 rounded-xl bg-[#14F195]/10 border border-[#14F195]/30 text-[#14F195] text-xs font-mono flex items-center justify-between">
+              <div className="p-3 rounded-xl bg-[#121216] border border-[#242430] text-zinc-200 text-xs font-mono flex items-center justify-between">
                 <span>Transaction confirmed on-chain!</span>
                 <a
                   href={explorerTx(txSig)}
                   target="_blank"
                   rel="noreferrer"
-                  className="underline font-bold"
+                  className="underline font-medium text-white"
                 >
                   View
                 </a>
@@ -589,7 +582,7 @@ export const AppPage: FC = () => {
             )}
 
             {txError && (
-              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-mono">
+              <div className="p-3 rounded-xl bg-[#141012] border border-[#2C1820] text-zinc-300 text-xs font-mono">
                 {txError}
               </div>
             )}
@@ -597,8 +590,8 @@ export const AppPage: FC = () => {
           </div>
 
           {/* Clean Trust Note */}
-          <div className="mt-6 text-center text-xs font-mono text-slate-500 flex items-center justify-center gap-1.5">
-            <ShieldCheck className="w-4 h-4 text-[#14F195]" />
+          <div className="mt-6 text-center text-xs font-mono text-zinc-500 flex items-center justify-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-zinc-400" />
             <span>Governed by Program Derived Address <code>vault</code></span>
           </div>
 

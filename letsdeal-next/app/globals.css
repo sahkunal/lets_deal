@@ -1,0 +1,312 @@
+@import "tailwindcss";
+
+:root {
+  --bg-space: #01050C;
+  --bg-deep: #020B16;
+  --bg-surface: #041427;
+  --glow-cyan: #00A3FF;
+  --glow-cyan-bright: #3ECBFF;
+  --text-primary: #FFFFFF;
+  --text-secondary: #8BA3C7;
+  --text-dim: #526B8E;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-glass: rgba(255, 255, 255, 0.16);
+  --border-glow: rgba(0, 163, 255, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #01050C;
+}
+
+body {
+  background-color: #01050C;
+  min-height: 100vh;
+  color: #FFFFFF;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
+}
+
+/* === HERO PAGE: Full-viewport cinematic background image === */
+.bg-hero-page {
+  position: relative;
+  background-color: #01050C;
+  min-height: 100vh;
+}
+
+.bg-hero-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/bg-new.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  /* Darken image to keep text readable, preserve the blue atmosphere */
+  opacity: 0.55;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-hero-page::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  /* Subtle vignette + darken edges so text pops clearly */
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.15) 50%,
+    rgba(1, 5, 12, 0.65) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content must sit above the pseudo-element layers */
+.bg-hero-page > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Subpages: subtle tinted dark bg matching the image palette */
+.bg-deep-ocean {
+  background: linear-gradient(180deg, #03101e 0%, #01050c 100%);
+}
+
+/* === SUBPAGES: cinematic eclipse background image === */
+.bg-subpage {
+  position: relative;
+  background-color: #01050C;
+  min-height: 100vh;
+}
+
+.bg-subpage::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/bg-subpage.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  /* Slightly more dimmed than hero — content-heavy pages need better contrast */
+  opacity: 0.35;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.bg-subpage::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  /* Bottom-heavy darkening — keeps top atmospheric, bottom readable */
+  background: linear-gradient(
+    180deg,
+    rgba(1, 5, 12, 0.25) 0%,
+    rgba(1, 5, 12, 0.55) 50%,
+    rgba(1, 5, 12, 0.85) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Content must sit above pseudo-element layers */
+.bg-subpage > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Nav links styling */
+.nav-link {
+  position: relative;
+  color: #8BA3C7;
+  font-size: 13px;
+  font-weight: 350;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #FFFFFF;
+}
+
+.nav-link.active {
+  color: #FFFFFF;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 1.5px;
+  background: #3ECBFF;
+  box-shadow: 0 0 8px #3ECBFF;
+  transition: width 0.25s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* Reference Pill Buttons */
+.btn-pill-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #FFFFFF;
+  color: #030C1A;
+  font-size: 12.5px;
+  font-weight: 550;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  white-space: nowrap;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+  text-decoration: none;
+}
+
+.btn-pill-solid:hover {
+  transform: scale(1.02);
+  background: #F0F6FF;
+  box-shadow: 0 0 35px rgba(62, 203, 255, 0.4);
+}
+
+.btn-pill-glass {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 450;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 8px 22px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.btn-pill-glass:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(62, 203, 255, 0.5);
+  box-shadow: 0 0 20px rgba(0, 163, 255, 0.25);
+  transform: scale(1.01);
+}
+
+/* Glass Panels */
+.panel-glass {
+  background: rgba(4, 20, 39, 0.45);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.panel-glass:hover {
+  border-color: rgba(62, 203, 255, 0.3);
+  box-shadow: 0 0 45px rgba(0, 163, 255, 0.12);
+  background: rgba(4, 20, 39, 0.65);
+}
+
+/* Floating Animations */
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float-subtle 6s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 5s ease-in-out infinite;
+}
+
+/* Reference Stat Block */
+.hero-stat-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+}
+
+.hero-stat-node-label {
+  font-size: 12px;
+  font-weight: 350;
+  color: #8BA3C7;
+  letter-spacing: 0.02em;
+}
+
+.hero-stat-node-value {
+  font-size: 14.5px;
+  font-weight: 400;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+/* Section Header Tags */
+.tag-cyan {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 400;
+  color: #3ECBFF;
+}
+
+/* Divider line */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #01050C;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(62, 203, 255, 0.4);
+}
