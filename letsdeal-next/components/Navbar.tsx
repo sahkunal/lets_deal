@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 const navLinks = [
   { label: "Explore", href: "/explore" },
@@ -83,11 +84,25 @@ export default function Navbar() {
         ))}
       </nav>
 
-      {/* Connect Glass Pill Button matching reference */}
+      {/* Connect Wallet Button */}
       <div className="hidden md:block">
-        <Link href="/vault" className="btn-pill-glass">
-          CONNECT
-        </Link>
+        <WalletMultiButton 
+          style={{
+            background: "rgba(255, 255, 255, 0.05)",
+            border: "1px solid rgba(255, 255, 255, 0.15)",
+            borderRadius: 9999,
+            padding: "8px 20px",
+            color: "#FFFFFF",
+            fontSize: 12,
+            letterSpacing: "0.08em",
+            fontWeight: 400,
+            textTransform: "uppercase",
+            fontFamily: "var(--font-inter), sans-serif",
+            height: "auto",
+            lineHeight: 1,
+            transition: "all 0.2s ease",
+          }}
+        />
       </div>
 
       {/* Mobile Hamburger */}
