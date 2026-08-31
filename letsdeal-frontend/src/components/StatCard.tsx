@@ -1,22 +1,34 @@
-import { FC, ReactNode } from "react";
+import React, { FC, ReactNode } from 'react';
 
-export const StatCard: FC<{ label: string; value: ReactNode; accent?: string }> = ({
+interface StatCardProps {
+  label: string;
+  value: ReactNode;
+  subValue?: string;
+  accent?: string;
+  icon?: React.ComponentType<{ className?: string }>;
+}
+
+export const StatCard: FC<StatCardProps> = ({
   label,
   value,
-  accent,
+  subValue,
+  accent = 'text-[#f1f3f7]',
+  icon: Icon
 }) => (
-  <div className="panel" style={{ padding: "14px 16px" }}>
-    <div className="mono-label" style={{ marginBottom: 8 }}>
-      {label}
+  <div className="bg-[#13151a] border border-[#21252e] p-4 rounded-xl space-y-1.5 font-mono">
+    <div className="flex items-center justify-between text-[11px] text-[#949eb2]">
+      <span className="uppercase tracking-wider">{label}</span>
+      {Icon && <Icon className="w-3.5 h-3.5 text-[#ff5500] opacity-75" />}
     </div>
-    <div
-      style={{
-        fontSize: 22,
-        fontWeight: 700,
-        color: accent ?? "var(--text)",
-      }}
-    >
+
+    <div className={`text-xl font-bold tracking-tight ${accent}`}>
       {value}
     </div>
+
+    {subValue && (
+      <div className="text-[11px] text-[#5c657a] truncate">
+        {subValue}
+      </div>
+    )}
   </div>
 );
