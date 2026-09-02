@@ -12,9 +12,12 @@ export const IDL_METADATA_PDA = new PublicKey(
 export const VAULT_SEED = "vault";
 
 export const RPC_URL =
-  import.meta.env.VITE_RPC_URL ?? "https://api.devnet.solana.com";
+  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_RPC_URL) ||
+  "https://api.devnet.solana.com";
 
-export const CLUSTER_LABEL = import.meta.env.VITE_CLUSTER_LABEL ?? "devnet";
+export const CLUSTER_LABEL =
+  (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_CLUSTER_LABEL) ||
+  "devnet";
 
 export const EXPLORER_CLUSTER_QS =
   CLUSTER_LABEL === "mainnet" ? "" : `?cluster=${CLUSTER_LABEL}`;
