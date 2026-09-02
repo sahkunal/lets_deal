@@ -81,10 +81,14 @@ export default function Footer() {
           >
             Protocol
           </span>
-          {["Vault", "Explore", "Technology", "Docs"].map((l) => (
+          {[
+            { label: "Trade Terminal", href: "/vault" },
+            { label: "Live Explorer", href: "/explore" },
+            { label: "Technical Docs", href: "/docs" },
+          ].map((l) => (
             <Link
-              key={l}
-              href={`/${l.toLowerCase()}`}
+              key={l.label}
+              href={l.href}
               style={{
                 fontSize: 13,
                 fontWeight: 350,
@@ -99,12 +103,12 @@ export default function Footer() {
                 ((e.target as HTMLElement).style.color = "#8BA3C7")
               }
             >
-              {l}
+              {l.label}
             </Link>
           ))}
         </div>
 
-        {/* Community Links */}
+        {/* Developer Links */}
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
           <span
             style={{
@@ -115,12 +119,18 @@ export default function Footer() {
               fontWeight: 450,
             }}
           >
-            Community
+            Developers
           </span>
-          {["Lore", "Community", "GitHub", "Twitter"].map((l) => (
-            <Link
-              key={l}
-              href={`/${l.toLowerCase()}`}
+          {[
+            { label: "GitHub Source", href: "https://github.com/sahkunal/lets_deal" },
+            { label: "Anchor Program", href: `https://explorer.solana.com/address/${PROGRAM_ID}?cluster=devnet` },
+            { label: "Solscan Contract", href: `https://solscan.io/account/${PROGRAM_ID}?cluster=devnet` },
+          ].map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target="_blank"
+              rel="noreferrer"
               style={{
                 fontSize: 13,
                 fontWeight: 350,
@@ -135,8 +145,8 @@ export default function Footer() {
                 ((e.target as HTMLElement).style.color = "#8BA3C7")
               }
             >
-              {l}
-            </Link>
+              {l.label}
+            </a>
           ))}
         </div>
 

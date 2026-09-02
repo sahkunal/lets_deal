@@ -16,6 +16,13 @@ export const metadata: Metadata = {
   description:
     "Trustless, atomic SOL ⇄ NFT over-the-counter swaps powered by Program Derived Address vaults on Solana.",
   keywords: ["solana", "escrow", "otc", "nft", "defi", "web3"],
+  icons: {
+    icon: [
+      { url: "/currency.png" },
+      { url: "/icon.png" },
+    ],
+    apple: "/currency.png",
+  },
 };
 
 export default function RootLayout({

@@ -5,7 +5,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import FadeUp from "@/components/FadeUp";
 import Link from "next/link";
-import { ArrowRight, Search, RefreshCw, ExternalLink, Sparkles, Shield, Coins } from "lucide-react";
+import { ArrowRight, Search, RefreshCw, ExternalLink } from "lucide-react";
+import { CoolVaultIcon, CoolRadarIcon, CoolNftMatrixIcon } from "@/components/CoolIcons";
 import { useConnection } from "@solana/wallet-adapter-react";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 import { fetchAllEscrows, EscrowAccount, EscrowState, EscrowStateLabel } from "@/lib/escrowAccount";
@@ -206,33 +207,47 @@ export default function ExplorePage() {
         <FadeUp>
           <div style={{ textAlign: "center" }}>
             <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
-              <span className="tag-cyan">Live Protocol Explorer</span>
+              <span
+                style={{
+                  background: "rgba(20, 241, 149, 0.12)",
+                  border: "1px solid rgba(20, 241, 149, 0.3)",
+                  color: "#14F195",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  padding: "3px 10px",
+                  borderRadius: 9999,
+                  fontFamily: "monospace",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
+                }}
+              >
+                <CoolRadarIcon size={14} />
+                SOLANA DEVNET EXPLORER
+              </span>
               <span
                 style={{
                   fontSize: 11,
-                  color: "#3ECBFF",
+                  color: "#9945FF",
                   letterSpacing: "0.08em",
                   fontFamily: "monospace",
-                  background: "rgba(0, 163, 255, 0.1)",
+                  background: "rgba(153, 69, 255, 0.1)",
                   padding: "4px 10px",
                   borderRadius: 9999,
-                  border: "1px solid rgba(0, 163, 255, 0.2)",
+                  border: "1px solid rgba(153, 69, 255, 0.2)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
                 }}
               >
-                SOLANA DEVNET
+                <CoolVaultIcon size={14} />
+                121B STATE
               </span>
             </div>
-            <h1
-              style={{
-                fontSize: "clamp(34px, 4vw, 52px)",
-                fontWeight: 300,
-                letterSpacing: "-0.035em",
-                lineHeight: 1.1,
-                color: "#FFFFFF",
-                margin: 0,
-              }}
-            >
-              Live on-chain escrow deals.
+            <h1 style={{ fontSize: "clamp(34px, 4.2vw, 54px)", fontWeight: 700, letterSpacing: "-0.035em", lineHeight: 1.05, color: "#FFFFFF", margin: 0 }}>
+              Live on-chain escrows.
+              <br />
+              <span className="font-light text-solana-gradient">Verified on Solana.</span>
             </h1>
             <p style={{ fontSize: 14.5, fontWeight: 350, color: "#8BA3C7", lineHeight: 1.6, maxWidth: 520, margin: "16px auto 0" }}>
               Explore real-time cryptographic escrow accounts deployed under the LetsDeal program on Solana Devnet.
@@ -303,8 +318,13 @@ export default function ExplorePage() {
             <button
               key={f}
               onClick={() => setSelectedFilter(f)}
-              className={selectedFilter === f ? "btn-pill-solid" : "btn-pill-glass"}
-              style={{ fontSize: 11, padding: "8px 18px" }}
+              className={selectedFilter === f ? "btn-solana-primary" : "btn-solana-secondary"}
+              style={{
+                fontSize: 12,
+                padding: selectedFilter === f ? "6px 14px" : "6px 16px",
+                height: 36,
+                cursor: "pointer",
+              }}
             >
               {f}
             </button>
@@ -334,7 +354,9 @@ export default function ExplorePage() {
           </div>
         ) : filteredDeals.length === 0 ? (
           <div className="panel-glass" style={{ padding: 60, textAlign: "center" }}>
-            <Shield size={32} color="#8BA3C7" style={{ margin: "0 auto 16px" }} />
+            <div style={{ display: "flex", justifyContent: "center", marginBottom: 16 }}>
+              <CoolVaultIcon size={40} />
+            </div>
             <div style={{ fontSize: 15, color: "#FFFFFF" }}>No escrows match your search.</div>
             <div style={{ fontSize: 13, color: "#8BA3C7", marginTop: 6 }}>
               Try searching for a different address or reset the filter.
@@ -417,8 +439,11 @@ export default function ExplorePage() {
                       }}
                     >
                       <div className="stat-block">
-                        <span className="stat-label">Agreed Amount</span>
-                        <span className="stat-value" style={{ color: "#34D399" }}>
+                        <span className="stat-label" style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                          <CoolVaultIcon size={13} />
+                          Agreed Amount
+                        </span>
+                        <span className="stat-value" style={{ color: "#14F195" }}>
                           {deal.amountSol.toFixed(2)} SOL
                         </span>
                       </div>
@@ -447,7 +472,8 @@ export default function ExplorePage() {
                         gap: 4,
                       }}
                     >
-                      <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                      <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 5 }}>
+                        <CoolNftMatrixIcon size={13} />
                         NFT: <span style={{ color: "#FFFFFF" }}>{deal.mint}</span>
                       </div>
                       <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
@@ -460,11 +486,16 @@ export default function ExplorePage() {
                   <div style={{ display: "flex", gap: 10 }}>
                     <Link
                       href={`/vault?escrow=${deal.address}`}
-                      className="btn-pill-solid"
-                      style={{ flex: 1, justifyContent: "center", fontSize: 12 }}
+                      className="btn-solana-primary"
+                      style={{
+                        flex: 1,
+                        justifyContent: "center",
+                        fontSize: 12,
+                        padding: "8px 14px",
+                      }}
                     >
-                      MANAGE IN VAULT
-                      <ArrowRight size={13} strokeWidth={1.5} />
+                      <span>MANAGE IN VAULT</span>
+                      <ArrowRight size={13} />
                     </Link>
                     <a
                       href={explorerAddress(deal.address)}

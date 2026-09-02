@@ -48,7 +48,6 @@ export default function SubpageVideoBackground() {
           objectPosition: "center",
           opacity: 0.65,
           filter: "contrast(1.18) brightness(1.04) saturate(1.15)",
-          imageRendering: "high-quality",
           backfaceVisibility: "hidden",
           WebkitBackfaceVisibility: "hidden",
           transformStyle: "preserve-3d",

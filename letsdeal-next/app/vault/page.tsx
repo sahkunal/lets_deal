@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import FadeUp from "@/components/FadeUp";
 import {
   ArrowRight,
-  Shield,
   ArrowDown,
   Sparkles,
   CheckCircle2,
@@ -16,10 +15,13 @@ import {
   ExternalLink,
   RefreshCw,
   AlertCircle,
-  ArrowLeftRight,
-  Coins,
-  FileCode,
 } from "lucide-react";
+import {
+  CoolVaultIcon,
+  CoolSwapIcon,
+  CoolTimelockIcon,
+  CoolNftMatrixIcon,
+} from "@/components/CoolIcons";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { Keypair, LAMPORTS_PER_SOL, PublicKey, Transaction } from "@solana/web3.js";
 import BN from "bn.js";
@@ -299,35 +301,56 @@ function VaultContent() {
         <FadeUp>
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 14 }}>
-              <span className="tag-cyan">Vault Terminal</span>
+              <span
+                style={{
+                  background: "rgba(20, 241, 149, 0.12)",
+                  border: "1px solid rgba(20, 241, 149, 0.3)",
+                  color: "#14F195",
+                  fontSize: 11,
+                  fontWeight: 600,
+                  padding: "3px 10px",
+                  borderRadius: 9999,
+                  fontFamily: "monospace",
+                }}
+              >
+                SOLANA VAULT TERMINAL
+              </span>
               <span
                 style={{
                   fontSize: 11,
-                  color: "#3ECBFF",
+                  color: "#9945FF",
                   letterSpacing: "0.08em",
                   fontFamily: "monospace",
-                  background: "rgba(0, 163, 255, 0.1)",
+                  background: "rgba(153, 69, 255, 0.1)",
                   padding: "4px 10px",
                   borderRadius: 9999,
-                  border: "1px solid rgba(0, 163, 255, 0.2)",
+                  border: "1px solid rgba(153, 69, 255, 0.2)",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 6,
                 }}
               >
-                SOLANA DEVNET
+                <CoolVaultIcon size={13} />
+                PDA VERIFIED
               </span>
             </div>
             <h1
               style={{
                 fontSize: "clamp(32px, 4vw, 48px)",
-                fontWeight: 300,
+                fontWeight: 700,
                 letterSpacing: "-0.035em",
-                lineHeight: 1.1,
+                lineHeight: 1.05,
                 color: "#FFFFFF",
-                margin: "0 0 16px",
+                margin: 0,
               }}
             >
-              Non-custodial OTC Escrow
+              Non-custodial escrow terminal.
+              <br />
+              <span className="font-light text-solana-gradient">
+                Atomic SOL ⇄ NFT swaps.
+              </span>
             </h1>
-            <p style={{ fontSize: 14, fontWeight: 350, color: "#8BA3C7", lineHeight: 1.6, maxWidth: 580, margin: 0 }}>
+            <p style={{ fontSize: 14, fontWeight: 350, color: "#8BA3C7", lineHeight: 1.6, maxWidth: 580, margin: "14px 0 0" }}>
               Deploy deterministic escrow contracts, lock SOL and SPL tokens in Program Derived Address vaults,
               and execute atomic swaps with zero counterparty risk.
             </p>
@@ -336,36 +359,36 @@ function VaultContent() {
 
         {/* Tab Switcher */}
         <div
-          className="panel-glass"
           style={{
             padding: 4,
             display: "flex",
             borderRadius: 9999,
-            gap: 4,
-            background: "rgba(4, 20, 39, 0.8)",
+            gap: 6,
+            background: "rgba(13, 12, 17, 0.8)",
+            border: "1px solid rgba(255, 255, 255, 0.1)",
           }}
         >
           <button
             onClick={() => setActiveTab("create")}
-            className={activeTab === "create" ? "btn-pill-solid" : "btn-pill-glass"}
+            className={activeTab === "create" ? "btn-solana-primary" : "btn-solana-secondary"}
             style={{
-              padding: "10px 22px",
+              padding: "8px 20px",
               fontSize: 12,
-              border: activeTab === "create" ? "none" : "transparent",
+              cursor: "pointer",
             }}
           >
             Create Escrow
           </button>
           <button
             onClick={() => setActiveTab("manage")}
-            className={activeTab === "manage" ? "btn-pill-solid" : "btn-pill-glass"}
+            className={activeTab === "manage" ? "btn-solana-primary" : "btn-solana-secondary"}
             style={{
-              padding: "10px 22px",
+              padding: "8px 20px",
               fontSize: 12,
-              border: activeTab === "manage" ? "none" : "transparent",
+              cursor: "pointer",
             }}
           >
-            Inspect & Manage Escrow
+            Inspect &amp; Manage Escrow
           </button>
         </div>
       </section>
@@ -671,16 +694,16 @@ function VaultContent() {
                 {/* Deploy Button */}
                 {!publicKey ? (
                   <button
-                    className="btn-pill-solid"
+                    className="btn-solana-secondary"
                     disabled
                     style={{ width: "100%", justifyContent: "center", opacity: 0.5, cursor: "not-allowed" }}
                   >
                     CONNECT WALLET TO DEPLOY
-                    <ArrowRight size={14} strokeWidth={1.5} />
+                    <ArrowRight size={14} />
                   </button>
                 ) : (
                   <button
-                    className="btn-pill-solid"
+                    className="btn-solana-primary"
                     onClick={handleCreateDeal}
                     disabled={!canCreate || busy}
                     style={{
@@ -690,13 +713,15 @@ function VaultContent() {
                       cursor: canCreate && !busy ? "pointer" : "not-allowed",
                     }}
                   >
-                    {busy ? actionLabel || "DEPLOYING TO DEVNET..." : "DEPLOY ESCROW NOW"}
-                    <ArrowRight size={14} strokeWidth={1.5} />
+                    <span>{busy ? actionLabel || "DEPLOYING TO DEVNET..." : "DEPLOY ESCROW NOW"}</span>
+                    <span className="btn-solana-arrow">
+                      <ArrowRight size={14} />
+                    </span>
                   </button>
                 )}
 
                 <div style={{ marginTop: 18, display: "flex", gap: 8, alignItems: "center", justifyContent: "center" }}>
-                  <Shield size={13} strokeWidth={1.5} color="#8BA3C7" />
+                  <CoolVaultIcon size={15} />
                   <span style={{ fontSize: 12, color: "#8BA3C7", fontWeight: 350 }}>
                     Non-custodial · PDA vault · Zero admin keys
                   </span>
@@ -1061,15 +1086,16 @@ function VaultContent() {
                         <button
                           onClick={handleDepositFunds}
                           disabled={!isBuyer || busy}
-                          className="btn-pill-solid"
+                          className="btn-solana-primary"
                           style={{
                             width: "100%",
                             justifyContent: "center",
                             opacity: isBuyer && !busy ? 1 : 0.5,
                             cursor: isBuyer && !busy ? "pointer" : "not-allowed",
+                            gap: 8,
                           }}
                         >
-                          <Coins size={15} />
+                          <CoolVaultIcon size={18} />
                           {busy ? actionLabel : `DEPOSIT ${(escrow.amount.toNumber() / LAMPORTS_PER_SOL).toFixed(4)} SOL (BUYER)`}
                         </button>
                         {!isBuyer && (
@@ -1089,7 +1115,7 @@ function VaultContent() {
                         <button
                           onClick={handleDepositNft}
                           disabled={!isSeller || busy}
-                          className="btn-pill-solid"
+                          className="btn-solana-primary"
                           style={{
                             width: "100%",
                             justifyContent: "center",
@@ -1097,9 +1123,10 @@ function VaultContent() {
                             cursor: isSeller && !busy ? "pointer" : "not-allowed",
                             background: "#818CF8",
                             color: "#FFFFFF",
+                            gap: 8,
                           }}
                         >
-                          <FileCode size={15} />
+                          <CoolNftMatrixIcon size={18} />
                           {busy ? actionLabel : "DEPOSIT NFT TO VAULT (SELLER)"}
                         </button>
                         {!isSeller && (
@@ -1119,15 +1146,16 @@ function VaultContent() {
                         <button
                           onClick={handleExecuteTrade}
                           disabled={busy}
-                          className="btn-pill-solid"
+                          className="btn-solana-primary"
                           style={{
                             width: "100%",
                             justifyContent: "center",
-                            background: "#34D399",
+                            background: "#14F195",
                             color: "#01050C",
+                            gap: 8,
                           }}
                         >
-                          <ArrowLeftRight size={15} />
+                          <CoolSwapIcon size={18} />
                           {busy ? actionLabel : "EXECUTE ATOMIC SWAP NOW"}
                         </button>
                       </div>
