@@ -78,47 +78,19 @@ body {
   background: linear-gradient(180deg, #03101e 0%, #01050c 100%);
 }
 
-/* === SUBPAGES: cinematic eclipse background image === */
+/* === SUBPAGES: transparent container over SubpageVideoBackground === */
 .bg-subpage {
   position: relative;
-  background-color: #01050C;
+  background-color: transparent;
   min-height: 100vh;
 }
 
-.bg-subpage::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url('/bg-subpage.jpg');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-  /* Slightly more dimmed than hero — content-heavy pages need better contrast */
-  opacity: 0.35;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.bg-subpage::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  /* Bottom-heavy darkening — keeps top atmospheric, bottom readable */
-  background: linear-gradient(
-    180deg,
-    rgba(1, 5, 12, 0.25) 0%,
-    rgba(1, 5, 12, 0.55) 50%,
-    rgba(1, 5, 12, 0.85) 100%
-  );
-  z-index: 1;
-  pointer-events: none;
-}
-
-/* Content must sit above pseudo-element layers */
+/* Content must sit above pseudo-element / background video layers */
 .bg-subpage > * {
   position: relative;
   z-index: 2;
 }
+
 
 /* Nav links styling */
 .nav-link {

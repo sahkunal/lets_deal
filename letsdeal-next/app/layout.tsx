@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { WalletContextProvider } from "@/components/WalletContextProvider";
+import SubpageVideoBackground from "@/components/SubpageVideoBackground";
 import "./globals.css";
 
 const inter = Inter({
@@ -25,6 +26,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className="bg-[#060B14] text-[#F5F7FA] antialiased overflow-x-hidden">
+        <SubpageVideoBackground />
         <WalletContextProvider>
           {children}
         </WalletContextProvider>
@@ -32,3 +34,4 @@ export default function RootLayout({
     </html>
   );
 }
+
