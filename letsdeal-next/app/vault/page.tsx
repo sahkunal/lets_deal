@@ -48,6 +48,16 @@ function VaultContent() {
   const { connection } = useConnection();
   const { publicKey, sendTransaction } = useWallet();
 
+  // Prevents the SSR/client hydration mismatch caused by wallet auto-reconnect:
+  // the server always renders with publicKey === null, but the client may
+  // already have a reconnected wallet by the time React hydrates. Gating
+  // wallet-dependent UI behind `mounted` guarantees the first client render
+  // matches the server render exactly.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const [activeTab, setActiveTab] = useState<"create" | "manage">(initialTab);
 
   // Form states for creation
@@ -135,6 +145,10 @@ function VaultContent() {
       }
 
       tx.feePayer = publicKey;
+      // Must set recentBlockhash BEFORE partialSign — Transaction.partialSign
+      // signs over the message, and the message requires a blockhash to exist.
+      const { blockhash } = await connection.getLatestBlockhash();
+      tx.recentBlockhash = blockhash;
       tx.partialSign(escrowKeypair);
 
       const sig = await sendTransaction(tx, connection);
@@ -692,7 +706,7 @@ function VaultContent() {
                 </label>
 
                 {/* Deploy Button */}
-                {!publicKey ? (
+                {!mounted || !publicKey ? (
                   <button
                     className="btn-solana-secondary"
                     disabled
@@ -890,7 +904,7 @@ function VaultContent() {
                         </span>
 
                         {/* Connected Role Indicator */}
-                        {publicKey && (
+                        {mounted && publicKey && (
                           <span
                             style={{
                               fontSize: 11,

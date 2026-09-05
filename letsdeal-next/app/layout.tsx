@@ -31,7 +31,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>git
       <body className="bg-[#060B14] text-[#F5F7FA] antialiased overflow-x-hidden">
         <SubpageVideoBackground />
         <WalletContextProvider>
