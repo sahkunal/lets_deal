@@ -15,14 +15,7 @@ export default function Footer() {
         width: "100%",
       }}
     >
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1.4fr 1fr 1fr 1fr",
-          gap: 48,
-        }}
-        className="grid-cols-2 sm:grid-cols-4"
-      >
+      <div className="footer-nav-grid">
         {/* Brand Column */}
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <Link

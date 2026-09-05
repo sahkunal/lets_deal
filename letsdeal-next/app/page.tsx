@@ -87,11 +87,11 @@ export default function HomePage() {
           {/* Solana Iconic Display Headline */}
           <h1
             style={{
-              fontSize: "clamp(42px, 5.8vw, 76px)",
+              fontSize: "clamp(32px, 6.5vw, 76px)",
               fontWeight: 700,
               letterSpacing: "-0.04em",
-              lineHeight: 1.02,
-              margin: "0 0 24px",
+              lineHeight: 1.05,
+              margin: "0 0 20px",
               color: "#FFFFFF",
             }}
           >
@@ -104,11 +104,11 @@ export default function HomePage() {
 
           <p
             style={{
-              fontSize: "clamp(16px, 1.8vw, 20px)",
+              fontSize: "clamp(15px, 1.8vw, 20px)",
               fontWeight: 400,
               color: "rgba(255, 255, 255, 0.65)",
               lineHeight: 1.6,
-              margin: "0 0 40px",
+              margin: "0 0 36px",
               maxWidth: 620,
             }}
           >
@@ -122,18 +122,19 @@ export default function HomePage() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 16,
+              gap: 14,
               flexWrap: "wrap",
             }}
+            className="flex-col sm:flex-row w-full sm:w-auto"
           >
-            <Link href="/vault" className="btn-solana-primary">
+            <Link href="/vault" className="btn-solana-primary w-full sm:w-auto text-center justify-center">
               <span>Get started</span>
               <span className="btn-solana-arrow">
                 <ArrowRight size={14} />
               </span>
             </Link>
 
-            <Link href="/explore" className="btn-solana-secondary">
+            <Link href="/explore" className="btn-solana-secondary w-full sm:w-auto text-center justify-center">
               <span>Explore live swaps</span>
             </Link>
           </div>
@@ -246,21 +247,10 @@ export default function HomePage() {
         style={{
           maxWidth: 1440,
           margin: "0 auto",
-          padding: "48px clamp(20px, 4vw, 56px)",
+          padding: "36px clamp(16px, 4vw, 56px)",
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            border: "1px solid rgba(255, 255, 255, 0.08)",
-            borderRadius: 16,
-            backgroundColor: "rgba(13, 12, 17, 0.72)",
-            backdropFilter: "blur(16px)",
-            overflow: "hidden",
-          }}
-          className="grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-        >
+        <div className="solana-metrics-grid">
           {/* Metric 1 */}
           <div className="solana-metric-cell">
             <span
@@ -402,18 +392,10 @@ export default function HomePage() {
         style={{
           maxWidth: 1440,
           margin: "0 auto",
-          padding: "48px clamp(20px, 4vw, 56px) 72px",
+          padding: "36px clamp(16px, 4vw, 56px) 56px",
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1.3fr",
-            gap: 48,
-            alignItems: "center",
-          }}
-          className="grid-cols-1 lg:grid-cols-2"
-        >
+        <div className="solana-dev-grid">
           <div>
             <span
               style={{
@@ -668,25 +650,10 @@ export default function HomePage() {
         style={{
           maxWidth: 1440,
           margin: "0 auto",
-          padding: "40px clamp(20px, 4vw, 56px) 100px",
+          padding: "36px clamp(16px, 4vw, 56px) 80px",
         }}
       >
-        <div
-          style={{
-            background: "linear-gradient(135deg, rgba(9, 8, 13, 0.78) 0%, rgba(13, 12, 17, 0.84) 100%)",
-            backdropFilter: "blur(20px)",
-            border: "1px solid rgba(255, 255, 255, 0.12)",
-            borderRadius: 20,
-            padding: "56px 40px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            gap: 40,
-            flexWrap: "wrap",
-            position: "relative",
-            overflow: "hidden",
-          }}
-        >
+        <div className="solana-cta-box">
           <div
             style={{
               position: "absolute",

@@ -41,7 +41,7 @@ export default function Navbar() {
         top: 0,
         zIndex: 100,
         height: 68,
-        padding: "0 clamp(20px, 4vw, 56px)",
+        padding: "0 clamp(16px, 3.5vw, 56px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
@@ -293,10 +293,32 @@ export default function Navbar() {
             href="/vault"
             onClick={() => setMenuOpen(false)}
             className="btn-solana-primary"
-            style={{ width: "fit-content", marginTop: 8 }}
+            style={{ width: "100%", justifyContent: "center", marginTop: 4 }}
           >
-            LAUNCH TERMINAL
+            <span>LAUNCH TERMINAL</span>
+            <span className="btn-solana-arrow">
+              <Terminal size={13} />
+            </span>
           </Link>
+
+          {mounted && (
+            <div style={{ marginTop: 2, width: "100%" }}>
+              <WalletMultiButton
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  backgroundColor: "rgba(20, 241, 149, 0.15)",
+                  color: "#14F195",
+                  border: "1px solid rgba(20, 241, 149, 0.4)",
+                  borderRadius: 9999,
+                  fontWeight: 600,
+                  fontSize: 13,
+                  height: 42,
+                  fontFamily: "var(--font-inter), sans-serif",
+                }}
+              />
+            </div>
+          )}
         </div>
       )}
     </header>

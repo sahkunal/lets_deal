@@ -214,6 +214,7 @@ body {
 .text-solana-gradient {
   background: linear-gradient(90deg, #9945FF 0%, #8752F3 28%, #5497D5 50%, #28E0B9 75%, #14F195 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -296,7 +297,7 @@ body {
 
 /* Solana Performance Metric Column */
 .solana-metric-cell {
-  padding: 32px 28px;
+  padding: 24px 20px;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   flex-direction: column;
@@ -307,6 +308,97 @@ body {
   .solana-metric-cell {
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .solana-metric-cell:last-child {
+    border-bottom: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .solana-metric-cell {
+    padding: 32px 28px;
+  }
+}
+
+/* Responsive Grids & Containers for Mobile */
+.solana-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  background-color: rgba(13, 12, 17, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .solana-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .solana-metrics-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.solana-dev-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .solana-dev-grid {
+    grid-template-columns: 1fr 1.3fr;
+    gap: 48px;
+  }
+}
+
+.footer-nav-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 640px) {
+  .footer-nav-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-nav-grid {
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
+}
+
+.solana-cta-box {
+  background: linear-gradient(135deg, rgba(9, 8, 13, 0.78) 0%, rgba(13, 12, 17, 0.84) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .solana-cta-box {
+    padding: 56px 40px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
   }
 }
 

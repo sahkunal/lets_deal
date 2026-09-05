@@ -259,31 +259,32 @@ export default function ExplorePage() {
         <div
           style={{
             display: "flex",
-            gap: 24,
-            marginTop: 36,
+            gap: 12,
+            marginTop: 28,
             flexWrap: "wrap",
             justifyContent: "center",
           }}
+          className="w-full"
         >
-          <div className="panel-glass" style={{ padding: "12px 24px", textAlign: "center" }}>
-            <span className="stat-label">Total Escrows Tracked</span>
-            <span className="stat-value" style={{ fontSize: 20 }}>{liveDeals.length}</span>
+          <div className="panel-glass flex-1 min-w-[130px]" style={{ padding: "10px 16px", textAlign: "center" }}>
+            <span className="stat-label">Tracked</span>
+            <span className="stat-value" style={{ fontSize: 18 }}>{liveDeals.length}</span>
           </div>
-          <div className="panel-glass" style={{ padding: "12px 24px", textAlign: "center" }}>
-            <span className="stat-label">Aggregate Protocol Volume</span>
-            <span className="stat-value" style={{ fontSize: 20, color: "#34D399" }}>
+          <div className="panel-glass flex-1 min-w-[130px]" style={{ padding: "10px 16px", textAlign: "center" }}>
+            <span className="stat-label">Total Volume</span>
+            <span className="stat-value" style={{ fontSize: 18, color: "#14F195" }}>
               {totalVolume.toFixed(2)} SOL
             </span>
           </div>
-          <div className="panel-glass" style={{ padding: "12px 24px", textAlign: "center" }}>
-            <span className="stat-label">Program Execution Model</span>
-            <span className="stat-value" style={{ fontSize: 20, color: "#3ECBFF" }}>PDA Vaults</span>
+          <div className="panel-glass flex-1 min-w-[130px]" style={{ padding: "10px 16px", textAlign: "center" }}>
+            <span className="stat-label">Execution</span>
+            <span className="stat-value" style={{ fontSize: 18, color: "#3ECBFF" }}>PDA Vaults</span>
           </div>
         </div>
       </section>
 
       {/* Filter Bar */}
-      <div style={{ maxWidth: 1360, margin: "0 auto", padding: "0 clamp(24px, 5vw, 64px) 36px" }}>
+      <div style={{ maxWidth: 1360, margin: "0 auto", padding: "0 clamp(16px, 4vw, 64px) 28px" }}>
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
           <div
             className="panel-glass"
@@ -343,7 +344,7 @@ export default function ExplorePage() {
       </div>
 
       {/* Deals Grid */}
-      <section style={{ maxWidth: 1360, margin: "0 auto", padding: "0 clamp(24px, 5vw, 64px) 120px" }}>
+      <section style={{ maxWidth: 1360, margin: "0 auto", padding: "0 clamp(16px, 4vw, 64px) 120px" }}>
         {loading && liveDeals.length === 0 ? (
           <div className="panel-glass" style={{ padding: 60, textAlign: "center" }}>
             <RefreshCw className="animate-spin" size={28} color="#3ECBFF" style={{ margin: "0 auto 16px" }} />
@@ -366,8 +367,8 @@ export default function ExplorePage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
-              gap: 20,
+              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
+              gap: 16,
             }}
           >
             {filteredDeals.map((deal, i) => (

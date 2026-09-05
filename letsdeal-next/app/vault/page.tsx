@@ -377,29 +377,34 @@ function VaultContent() {
             padding: 4,
             display: "flex",
             borderRadius: 9999,
-            gap: 6,
+            gap: 4,
             background: "rgba(13, 12, 17, 0.8)",
             border: "1px solid rgba(255, 255, 255, 0.1)",
           }}
+          className="w-full sm:w-auto justify-center"
         >
           <button
             onClick={() => setActiveTab("create")}
-            className={activeTab === "create" ? "btn-solana-primary" : "btn-solana-secondary"}
+            className={activeTab === "create" ? "btn-solana-primary flex-1 sm:flex-initial" : "btn-solana-secondary flex-1 sm:flex-initial"}
             style={{
-              padding: "8px 20px",
+              padding: "8px 14px",
               fontSize: 12,
               cursor: "pointer",
+              textAlign: "center",
+              justifyContent: "center",
             }}
           >
             Create Escrow
           </button>
           <button
             onClick={() => setActiveTab("manage")}
-            className={activeTab === "manage" ? "btn-solana-primary" : "btn-solana-secondary"}
+            className={activeTab === "manage" ? "btn-solana-primary flex-1 sm:flex-initial" : "btn-solana-secondary flex-1 sm:flex-initial"}
             style={{
-              padding: "8px 20px",
+              padding: "8px 14px",
               fontSize: 12,
               cursor: "pointer",
+              textAlign: "center",
+              justifyContent: "center",
             }}
           >
             Inspect &amp; Manage Escrow
@@ -408,7 +413,7 @@ function VaultContent() {
       </section>
 
       {/* Main Terminal Container */}
-      <section style={{ maxWidth: 1360, margin: "0 auto", padding: "16px clamp(24px, 5vw, 64px) 120px" }}>
+      <section style={{ maxWidth: 1360, margin: "0 auto", padding: "16px clamp(16px, 4vw, 64px) 120px" }}>
         {/* Global Notifications */}
         {error && (
           <div
@@ -479,7 +484,7 @@ function VaultContent() {
         {activeTab === "create" && (
           <div style={{ maxWidth: 520, margin: "0 auto" }}>
             <FadeUp>
-              <div className="panel-glass" style={{ padding: 36 }}>
+              <div className="panel-glass" style={{ padding: "clamp(20px, 5vw, 36px)" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 28 }}>
                   <div>
                     <h2 style={{ fontSize: 17, fontWeight: 450, color: "#FFFFFF", margin: 0, letterSpacing: "-0.01em" }}>
@@ -842,7 +847,7 @@ function VaultContent() {
               )}
 
               {escrow && !escrowLoading && (
-                <div className="panel-glass" style={{ padding: 36 }}>
+                <div className="panel-glass" style={{ padding: "clamp(20px, 5vw, 36px)" }}>
                   {/* Top Bar: Address + Status + Copy */}
                   <div
                     style={{
@@ -857,9 +862,9 @@ function VaultContent() {
                     }}
                   >
                     <div>
-                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6, flexWrap: "wrap" }}>
                         <span style={{ fontSize: 12, color: "#8BA3C7" }}>Escrow Account:</span>
-                        <span style={{ fontFamily: "monospace", fontSize: 14, color: "#FFFFFF", fontWeight: 500 }}>
+                        <span style={{ fontFamily: "monospace", fontSize: 13, color: "#FFFFFF", fontWeight: 500, wordBreak: "break-all" }}>
                           {escrow.address.toBase58()}
                         </span>
                         <button
@@ -935,11 +940,7 @@ function VaultContent() {
                       Lifecycle Phase Progress
                     </div>
                     <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(4, 1fr)",
-                        gap: 8,
-                      }}
+                      className="grid grid-cols-2 sm:grid-cols-4 gap-2"
                     >
                       {[
                         { label: "1. Initialized", active: escrow.state >= EscrowState.Initialized },
@@ -1027,56 +1028,56 @@ function VaultContent() {
                       background: "rgba(4, 20, 39, 0.5)",
                       border: "1px solid rgba(255, 255, 255, 0.06)",
                       borderRadius: 14,
-                      padding: 20,
+                      padding: "clamp(14px, 4vw, 20px)",
                       marginBottom: 32,
                       display: "flex",
                       flexDirection: "column",
                       gap: 12,
-                      fontSize: 12.5,
+                      fontSize: 12,
                       fontFamily: "monospace",
                     }}
                   >
-                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 6 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
                       <span style={{ color: "#8BA3C7" }}>Buyer:</span>
                       <a
                         href={explorerAddress(escrow.buyer.toBase58())}
                         target="_blank"
                         rel="noreferrer"
-                        style={{ color: "#FFFFFF", textDecoration: "underline" }}
+                        style={{ color: "#FFFFFF", textDecoration: "underline", wordBreak: "break-all" }}
                       >
                         {escrow.buyer.toBase58()}
                       </a>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 6 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
                       <span style={{ color: "#8BA3C7" }}>Seller:</span>
                       <a
                         href={explorerAddress(escrow.seller.toBase58())}
                         target="_blank"
                         rel="noreferrer"
-                        style={{ color: "#FFFFFF", textDecoration: "underline" }}
+                        style={{ color: "#FFFFFF", textDecoration: "underline", wordBreak: "break-all" }}
                       >
                         {escrow.seller.toBase58()}
                       </a>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 6 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
                       <span style={{ color: "#8BA3C7" }}>NFT Mint:</span>
                       <a
                         href={explorerAddress(escrow.nftMint.toBase58())}
                         target="_blank"
                         rel="noreferrer"
-                        style={{ color: "#FFFFFF", textDecoration: "underline" }}
+                        style={{ color: "#FFFFFF", textDecoration: "underline", wordBreak: "break-all" }}
                       >
                         {escrow.nftMint.toBase58()}
                       </a>
                     </div>
                     {vaultStatus && (
-                      <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 6 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
                         <span style={{ color: "#8BA3C7" }}>Vault PDA:</span>
                         <a
                           href={explorerAddress(vaultStatus.vaultPda.toBase58())}
                           target="_blank"
                           rel="noreferrer"
-                          style={{ color: "#3ECBFF", textDecoration: "underline" }}
+                          style={{ color: "#3ECBFF", textDecoration: "underline", wordBreak: "break-all" }}
                         >
                           {vaultStatus.vaultPda.toBase58()}
                         </a>
