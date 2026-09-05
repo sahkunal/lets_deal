@@ -25,8 +25,10 @@ export default function Navbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
     const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -181,24 +183,44 @@ export default function Navbar() {
           </kbd>
         </Link>
 
-        <WalletMultiButton
-          style={{
-            backgroundColor: "#14F195",
-            color: "#000000",
-            border: "none",
-            borderRadius: 9999,
-            padding: "8px 18px",
-            fontSize: 12,
-            letterSpacing: "0.02em",
-            fontWeight: 600,
-            textTransform: "uppercase",
-            fontFamily: "var(--font-inter), sans-serif",
-            height: "auto",
-            lineHeight: 1,
-            transition: "all 0.2s ease",
-            boxShadow: "0 0 16px rgba(20, 241, 149, 0.25)",
-          }}
-        />
+        {mounted ? (
+          <WalletMultiButton
+            style={{
+              backgroundColor: "#14F195",
+              color: "#000000",
+              border: "none",
+              borderRadius: 9999,
+              padding: "8px 18px",
+              fontSize: 12,
+              letterSpacing: "0.02em",
+              fontWeight: 600,
+              textTransform: "uppercase",
+              fontFamily: "var(--font-inter), sans-serif",
+              height: "auto",
+              lineHeight: 1,
+              transition: "all 0.2s ease",
+              boxShadow: "0 0 16px rgba(20, 241, 149, 0.25)",
+            }}
+          />
+        ) : (
+          <div
+            style={{
+              backgroundColor: "rgba(20, 241, 149, 0.2)",
+              color: "#14F195",
+              border: "1px solid rgba(20, 241, 149, 0.4)",
+              borderRadius: 9999,
+              padding: "8px 18px",
+              fontSize: 12,
+              fontWeight: 600,
+              textTransform: "uppercase",
+              height: 36,
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            SELECT WALLET
+          </div>
+        )}
       </div>
 
       {/* Mobile Hamburger */}

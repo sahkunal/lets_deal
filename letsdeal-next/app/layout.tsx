@@ -31,8 +31,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>git
-      <body className="bg-[#060B14] text-[#F5F7FA] antialiased overflow-x-hidden">
+    <html
+      lang="en"
+      className={inter.variable}
+      data-scroll-behavior="smooth"
+      suppressHydrationWarning
+    >
+      <body
+        className="bg-[#060B14] text-[#F5F7FA] antialiased overflow-x-hidden"
+        suppressHydrationWarning
+      >
         <SubpageVideoBackground />
         <WalletContextProvider>
           {children}
