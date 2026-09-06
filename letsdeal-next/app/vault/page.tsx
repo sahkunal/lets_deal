@@ -583,7 +583,7 @@ function VaultContent() {
                   </div>
                 </div>
 
-                {/* NFT Mint */}
+                {/* Asset Address */}
                 <div
                   style={{
                     background: "rgba(4, 20, 39, 0.6)",
@@ -602,10 +602,10 @@ function VaultContent() {
                       marginBottom: 8,
                     }}
                   >
-                    Required NFT Mint Address
+                    Asset Address
                   </div>
                   <input
-                    placeholder="EPjF…MintAddress (32 bytes)"
+                    placeholder="EPjF…AssetAddress (32 bytes)"
                     value={mintInput}
                     onChange={(e) => setMintInput(e.target.value)}
                     style={{
@@ -1060,7 +1060,7 @@ function VaultContent() {
                       </a>
                     </div>
                     <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
-                      <span style={{ color: "#8BA3C7" }}>NFT Mint:</span>
+                      <span style={{ color: "#8BA3C7" }}>Asset Address:</span>
                       <a
                         href={explorerAddress(escrow.nftMint.toBase58())}
                         target="_blank"

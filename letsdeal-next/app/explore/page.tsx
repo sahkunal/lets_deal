@@ -292,7 +292,7 @@ export default function ExplorePage() {
           >
             <Search size={14} strokeWidth={1.5} color="#8BA3C7" />
             <input
-              placeholder="Search by escrow address or NFT mint..."
+              placeholder="Search by escrow or asset address..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               style={{
@@ -475,7 +475,7 @@ export default function ExplorePage() {
                     >
                       <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 5 }}>
                         <CoolNftMatrixIcon size={13} />
-                        NFT: <span style={{ color: "#FFFFFF" }}>{deal.mint}</span>
+                        Asset: <span style={{ color: "#FFFFFF" }}>{deal.mint}</span>
                       </div>
                       <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                         Buyer: <span style={{ color: "#FFFFFF" }}>{deal.buyer}</span>
