@@ -1,9 +1,19 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 export default function SubpageVideoBackground() {
   const pathname = usePathname();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    // Explicitly set muted to true on DOM node to satisfy strict iOS / mobile autoplay policies
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(() => {});
+    }
+  }, [pathname]);
 
   // Only render on subpages (all pages apart from the landing page "/")
   if (pathname === "/") {
@@ -19,6 +29,8 @@ export default function SubpageVideoBackground() {
         pointerEvents: "none",
         overflow: "hidden",
         backgroundColor: "#01050C",
+        width: "100%",
+        height: "100%",
       }}
       aria-hidden="true"
     >
@@ -28,10 +40,12 @@ export default function SubpageVideoBackground() {
         On desktop/widescreen landscape: rotated 90deg to span 16:9 widescreen edge-to-edge.
       */}
       <video
+        ref={videoRef}
         autoPlay
         loop
         muted
         playsInline
+        webkit-playsinline="true"
         preload="auto"
         src="/bg-subpage.mp4"
         className="subpage-video-element"

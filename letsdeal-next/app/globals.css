@@ -29,14 +29,38 @@
 html {
   scroll-behavior: smooth;
   background-color: #01050C;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
 }
 
 body {
   background-color: #01050C;
   min-height: 100vh;
+  min-height: 100dvh;
   color: #FFFFFF;
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
   overflow-x: hidden;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+}
+
+/* Prevent iOS Safari auto-zoom on input focus */
+@media (max-width: 768px) {
+  input:not([type="checkbox"]):not([type="radio"]),
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+}
+
+/* Solana Wallet Adapter modal mobile layering */
+.wallet-adapter-modal-wrapper {
+  z-index: 99999 !important;
+}
+.wallet-adapter-modal-container {
+  z-index: 99999 !important;
 }
 
 /* === HERO PAGE: Full-viewport cinematic background image === */
@@ -117,20 +141,25 @@ body {
   will-change: transform;
 }
 
-/* Mobile & Small Devices & Portrait: Native VERTICAL (0deg rotation) */
+/* Mobile & Small Devices & Portrait: Native VERTICAL (no rotation, zero jitter, 100% full screen) */
 @media (max-width: 768px), (orientation: portrait) {
   .subpage-video-element {
-    width: 100vw;
-    height: 100vh;
-    min-width: 100vw;
-    min-height: 100vh;
-    transform: translate(-50%, -50%) rotate(0deg) scale(1.01);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: none;
+    object-fit: cover;
   }
 }
 
 /* Desktop Widescreen Landscape: Rotated 90deg to span widescreen edge-to-edge */
 @media (min-width: 769px) and (orientation: landscape) {
   .subpage-video-element {
+    top: 50%;
+    left: 50%;
     width: 100vh;
     height: 100vw;
     min-width: 100vh;

@@ -121,11 +121,10 @@ export default function HomePage() {
           <div
             style={{
               display: "flex",
-              alignItems: "center",
               gap: 14,
               flexWrap: "wrap",
             }}
-            className="flex-col sm:flex-row w-full sm:w-auto"
+            className="flex-col sm:flex-row w-full sm:w-auto items-stretch sm:items-center"
           >
             <Link href="/vault" className="btn-solana-primary w-full sm:w-auto text-center justify-center">
               <span>Get started</span>
@@ -708,20 +707,20 @@ export default function HomePage() {
           <div
             style={{
               display: "flex",
-              alignItems: "center",
-              gap: 16,
+              gap: 14,
               flexWrap: "wrap",
               position: "relative",
               zIndex: 1,
             }}
+            className="w-full sm:w-auto flex-col sm:flex-row items-stretch sm:items-center"
           >
-            <Link href="/vault" className="btn-solana-primary">
+            <Link href="/vault" className="btn-solana-primary w-full sm:w-auto text-center justify-center">
               <span>Open Terminal</span>
               <span className="btn-solana-arrow">
                 <ArrowRight size={14} />
               </span>
             </Link>
-            <Link href="/docs" className="btn-solana-secondary">
+            <Link href="/docs" className="btn-solana-secondary w-full sm:w-auto text-center justify-center">
               Developer Docs
             </Link>
           </div>

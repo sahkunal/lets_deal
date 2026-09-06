@@ -387,11 +387,12 @@ function VaultContent() {
             onClick={() => setActiveTab("create")}
             className={activeTab === "create" ? "btn-solana-primary flex-1 sm:flex-initial" : "btn-solana-secondary flex-1 sm:flex-initial"}
             style={{
-              padding: "8px 14px",
-              fontSize: 12,
+              padding: "8px clamp(10px, 2.5vw, 16px)",
+              fontSize: "clamp(11px, 2.8vw, 12.5px)",
               cursor: "pointer",
               textAlign: "center",
               justifyContent: "center",
+              whiteSpace: "nowrap",
             }}
           >
             Create Escrow
@@ -400,14 +401,16 @@ function VaultContent() {
             onClick={() => setActiveTab("manage")}
             className={activeTab === "manage" ? "btn-solana-primary flex-1 sm:flex-initial" : "btn-solana-secondary flex-1 sm:flex-initial"}
             style={{
-              padding: "8px 14px",
-              fontSize: 12,
+              padding: "8px clamp(10px, 2.5vw, 16px)",
+              fontSize: "clamp(11px, 2.8vw, 12.5px)",
               cursor: "pointer",
               textAlign: "center",
               justifyContent: "center",
+              whiteSpace: "nowrap",
             }}
           >
-            Inspect &amp; Manage Escrow
+            <span className="hidden sm:inline">Inspect &amp; Manage Escrow</span>
+            <span className="sm:hidden">Manage Escrow</span>
           </button>
         </div>
       </section>
@@ -545,7 +548,8 @@ function VaultContent() {
                         background: "none",
                         border: "none",
                         outline: "none",
-                        width: "60%",
+                        flex: 1,
+                        minWidth: 0,
                         letterSpacing: "-0.03em",
                       }}
                     />

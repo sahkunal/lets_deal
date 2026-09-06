@@ -252,13 +252,16 @@ export default function Navbar() {
             top: 68,
             left: 0,
             right: 0,
+            maxHeight: "calc(100dvh - 68px)",
+            overflowY: "auto",
             background: "rgba(5, 5, 8, 0.98)",
             backdropFilter: "blur(24px)",
             borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
-            padding: "24px 32px",
+            padding: "20px 24px 32px",
             display: "flex",
             flexDirection: "column",
-            gap: 18,
+            gap: 16,
+            boxShadow: "0 20px 40px rgba(0,0,0,0.8)",
           }}
         >
           {navLinks.map((link) => (
