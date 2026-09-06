@@ -233,7 +233,10 @@ export default function SolanaCodeConsole() {
         style={{
           display: "flex",
           justifyContent: "space-between",
-          padding: "8px 20px",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: 8,
+          padding: "8px 16px",
           borderTop: "1px solid rgba(255, 255, 255, 0.05)",
           backgroundColor: "#08070B",
           fontSize: 11,
@@ -245,8 +248,8 @@ export default function SolanaCodeConsole() {
           <Terminal size={11} color="#14F195" />
           <span>SOLANA_RUNTIME_V1</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <span>SLOT_EXECUTION: ~400ms</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+          <span className="hidden sm:inline">SLOT_EXECUTION: ~400ms</span>
           <span style={{ color: "#14F195" }}>DETERMINISTIC_SAFE</span>
         </div>
       </div>

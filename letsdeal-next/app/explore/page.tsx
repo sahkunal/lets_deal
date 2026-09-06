@@ -486,12 +486,18 @@ export default function ExplorePage() {
                         gap: 4,
                       }}
                     >
-                      <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", display: "flex", alignItems: "center", gap: 5 }}>
+                      <div style={{ minWidth: 0, display: "flex", alignItems: "center", gap: 5 }}>
                         <CoolNftMatrixIcon size={13} />
-                        Asset: <span style={{ color: "#FFFFFF" }}>{deal.mint}</span>
+                        <span style={{ flexShrink: 0 }}>Asset:</span>
+                        <span style={{ color: "#FFFFFF", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0, flex: 1 }}>
+                          {deal.mint.slice(0, 6)}…{deal.mint.slice(-6)}
+                        </span>
                       </div>
-                      <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-                        Buyer: <span style={{ color: "#FFFFFF" }}>{deal.buyer}</span>
+                      <div style={{ minWidth: 0, display: "flex", alignItems: "center", gap: 5 }}>
+                        <span style={{ flexShrink: 0 }}>Buyer:</span>
+                        <span style={{ color: "#FFFFFF", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", minWidth: 0, flex: 1 }}>
+                          {deal.buyer.slice(0, 6)}…{deal.buyer.slice(-6)}
+                        </span>
                       </div>
                     </div>
                   </div>

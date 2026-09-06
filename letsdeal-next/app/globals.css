@@ -388,13 +388,27 @@ body {
   justify-content: space-between;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 639px) {
   .solana-metric-cell {
     border-right: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 20px 16px;
   }
   .solana-metric-cell:last-child {
     border-bottom: none;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  .solana-metric-cell {
+    padding: 24px 20px;
+  }
+  .solana-metric-cell:nth-child(odd) {
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .solana-metric-cell:nth-child(1),
+  .solana-metric-cell:nth-child(2) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 }
 

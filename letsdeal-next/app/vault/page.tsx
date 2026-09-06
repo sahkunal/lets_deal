@@ -1045,8 +1045,8 @@ function VaultContent() {
                       fontFamily: "monospace",
                     }}
                   >
-                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
-                      <span style={{ color: "#8BA3C7" }}>Buyer:</span>
+                    <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4" style={{ minWidth: 0 }}>
+                      <span style={{ color: "#8BA3C7", flexShrink: 0 }}>Buyer:</span>
                       <a
                         href={explorerAddress(escrow.buyer.toBase58())}
                         target="_blank"
@@ -1056,8 +1056,8 @@ function VaultContent() {
                         {escrow.buyer.toBase58()}
                       </a>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
-                      <span style={{ color: "#8BA3C7" }}>Seller:</span>
+                    <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4" style={{ minWidth: 0 }}>
+                      <span style={{ color: "#8BA3C7", flexShrink: 0 }}>Seller:</span>
                       <a
                         href={explorerAddress(escrow.seller.toBase58())}
                         target="_blank"
@@ -1067,8 +1067,8 @@ function VaultContent() {
                         {escrow.seller.toBase58()}
                       </a>
                     </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
-                      <span style={{ color: "#8BA3C7" }}>Asset Address:</span>
+                    <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4" style={{ minWidth: 0 }}>
+                      <span style={{ color: "#8BA3C7", flexShrink: 0 }}>Asset Address:</span>
                       <a
                         href={explorerAddress(escrow.nftMint.toBase58())}
                         target="_blank"
@@ -1079,8 +1079,8 @@ function VaultContent() {
                       </a>
                     </div>
                     {vaultStatus && (
-                      <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 4 }}>
-                        <span style={{ color: "#8BA3C7" }}>Vault PDA:</span>
+                      <div className="flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4" style={{ minWidth: 0 }}>
+                        <span style={{ color: "#8BA3C7", flexShrink: 0 }}>Vault PDA:</span>
                         <a
                           href={explorerAddress(vaultStatus.vaultPda.toBase58())}
                           target="_blank"

@@ -87,7 +87,7 @@ export default function HomePage() {
           {/* Solana Iconic Display Headline */}
           <h1
             style={{
-              fontSize: "clamp(32px, 6.5vw, 76px)",
+              fontSize: "clamp(28px, 6.5vw, 76px)",
               fontWeight: 700,
               letterSpacing: "-0.04em",
               lineHeight: 1.05,

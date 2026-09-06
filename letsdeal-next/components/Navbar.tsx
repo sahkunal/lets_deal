@@ -41,12 +41,15 @@ export default function Navbar() {
         top: 0,
         zIndex: 100,
         height: 68,
-        padding: "0 clamp(16px, 3.5vw, 56px)",
+        width: "100%",
+        maxWidth: "100vw",
+        padding: "0 clamp(14px, 3.5vw, 56px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        background: scrolled ? "rgba(0, 0, 0, 0.82)" : "rgba(0, 0, 0, 0.4)",
+        background: scrolled ? "rgba(0, 0, 0, 0.88)" : "rgba(0, 0, 0, 0.5)",
         backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
         borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
         transition: "all 0.25s ease",
       }}
@@ -224,25 +227,50 @@ export default function Navbar() {
         )}
       </div>
 
-      {/* Mobile Hamburger */}
-      <button
-        className="md:hidden"
-        onClick={() => setMenuOpen(!menuOpen)}
-        style={{
-          background: "rgba(255, 255, 255, 0.06)",
-          border: "1px solid rgba(255, 255, 255, 0.12)",
-          borderRadius: 9999,
-          padding: "6px 14px",
-          cursor: "pointer",
-          color: "#FFFFFF",
-          fontSize: 11,
-          letterSpacing: "0.08em",
-          fontWeight: 500,
-          textTransform: "uppercase",
-        }}
-      >
-        {menuOpen ? "CLOSE" : "MENU"}
-      </button>
+      {/* Mobile Actions: Wallet + Menu */}
+      <div className="flex md:hidden items-center gap-2">
+        {mounted && (
+          <WalletMultiButton
+            style={{
+              backgroundColor: "#14F195",
+              color: "#000000",
+              border: "none",
+              borderRadius: 9999,
+              padding: "6px 12px",
+              fontSize: 11,
+              letterSpacing: "0.02em",
+              fontWeight: 600,
+              textTransform: "uppercase",
+              fontFamily: "var(--font-inter), sans-serif",
+              height: 32,
+              lineHeight: 1,
+              boxShadow: "0 0 10px rgba(20, 241, 149, 0.2)",
+            }}
+          />
+        )}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle Menu"
+          style={{
+            background: "rgba(255, 255, 255, 0.08)",
+            border: "1px solid rgba(255, 255, 255, 0.16)",
+            borderRadius: 9999,
+            padding: "6px 12px",
+            cursor: "pointer",
+            color: "#FFFFFF",
+            fontSize: 11,
+            letterSpacing: "0.08em",
+            fontWeight: 600,
+            textTransform: "uppercase",
+            height: 32,
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          {menuOpen ? "✕" : "MENU"}
+        </button>
+      </div>
 
       {/* Mobile Dropdown */}
       {menuOpen && (
