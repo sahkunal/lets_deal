@@ -99,6 +99,61 @@ body {
   z-index: 2;
 }
 
+/* === Responsive Video Background for Subpages === */
+/* Video natively 9:16 vertical (612x1088).
+   On mobile/small devices/portrait: plays pure VERTICAL (rotate 0deg).
+   On desktop/landscape widescreen: rotated 90deg to span 16:9 landscape. */
+.subpage-video-element {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0.65;
+  filter: contrast(1.18) brightness(1.04) saturate(1.15);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Mobile & Small Devices & Portrait: Native VERTICAL (0deg rotation) */
+@media (max-width: 768px), (orientation: portrait) {
+  .subpage-video-element {
+    width: 100vw;
+    height: 100vh;
+    min-width: 100vw;
+    min-height: 100vh;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1.01);
+  }
+}
+
+/* Desktop Widescreen Landscape: Rotated 90deg to span widescreen edge-to-edge */
+@media (min-width: 769px) and (orientation: landscape) {
+  .subpage-video-element {
+    width: 100vh;
+    height: 100vw;
+    min-width: 100vh;
+    min-height: 100vw;
+    transform: translate(-50%, -50%) rotate(90deg) scale(1.02);
+  }
+}
+
+/* Responsive Docs Layout Grid */
+.docs-layout-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+@media (min-width: 1024px) {
+  .docs-layout-grid {
+    grid-template-columns: 320px 1fr;
+    gap: 40px;
+  }
+}
+
 
 /* Nav links styling */
 .nav-link {

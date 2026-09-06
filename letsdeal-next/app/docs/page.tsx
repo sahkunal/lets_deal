@@ -139,15 +139,7 @@ export default function DocsPage() {
           padding: "20px clamp(24px, 5vw, 64px) 100px",
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 2fr",
-            gap: 40,
-            alignItems: "flex-start",
-          }}
-          className="grid-cols-1 lg:grid-cols-3"
-        >
+        <div className="docs-layout-grid">
           {/* Left Column: Quick Reference Specs */}
           <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
             <div

@@ -101,16 +101,16 @@ export default function SolanaCodeConsole() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          padding: "12px 20px",
+          padding: "10px clamp(12px, 3vw, 20px)",
           borderBottom: "1px solid rgba(255, 255, 255, 0.08)",
           backgroundColor: "#09080D",
           flexWrap: "wrap",
-          gap: 12,
+          gap: 10,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap", flex: 1, minWidth: 0 }}>
           {/* macOS window dots */}
-          <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
             <span
               style={{
                 width: 10,
@@ -140,8 +140,17 @@ export default function SolanaCodeConsole() {
             />
           </div>
 
-          {/* Language / Mode Tabs */}
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          {/* Language / Mode Tabs (horizontally scrollable on small screens) */}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+              overflowX: "auto",
+              maxWidth: "100%",
+              scrollbarWidth: "none",
+            }}
+          >
             {TABS.map((t) => {
               const isActive = t.id === activeTab;
               return (
@@ -155,11 +164,13 @@ export default function SolanaCodeConsole() {
                     color: isActive ? "#FFFFFF" : "#8BA3C7",
                     border: "none",
                     borderRadius: 9999,
-                    padding: "4px 12px",
-                    fontSize: 12,
+                    padding: "4px 10px",
+                    fontSize: 11.5,
                     fontWeight: isActive ? 500 : 400,
                     cursor: "pointer",
                     transition: "all 0.15s ease",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0,
                   }}
                 >
                   {t.label}

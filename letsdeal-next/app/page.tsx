@@ -196,7 +196,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }} className="w-full sm:w-auto justify-start sm:justify-end">
             <button
               onClick={copyAddress}
               style={{

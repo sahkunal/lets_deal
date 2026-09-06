@@ -74,6 +74,7 @@ export default function Navbar() {
           LETSDEAL
         </span>
         <span
+          className="hidden sm:inline-block"
           style={{
             background: "rgba(20, 241, 149, 0.12)",
             border: "1px solid rgba(20, 241, 149, 0.3)",

@@ -760,15 +760,15 @@ function VaultContent() {
               <div
                 className="panel-glass"
                 style={{
-                  padding: 20,
+                  padding: "clamp(16px, 4vw, 24px)",
                   marginBottom: 24,
                   display: "flex",
                   gap: 12,
-                  alignItems: "center",
-                  flexWrap: "wrap",
+                  alignItems: "stretch",
+                  flexDirection: "column",
                 }}
               >
-                <div style={{ flex: 1, minWidth: 280 }}>
+                <div style={{ width: "100%" }}>
                   <div style={{ fontSize: 11, color: "#8BA3C7", textTransform: "uppercase", marginBottom: 6 }}>
                     Escrow Account Address
                   </div>
@@ -781,7 +781,7 @@ function VaultContent() {
                       background: "rgba(4, 20, 39, 0.6)",
                       border: "1px solid rgba(255, 255, 255, 0.1)",
                       borderRadius: 10,
-                      padding: "10px 14px",
+                      padding: "12px 14px",
                       fontSize: 13,
                       fontFamily: "monospace",
                       color: "#FFFFFF",
@@ -789,11 +789,11 @@ function VaultContent() {
                     }}
                   />
                 </div>
-                <div style={{ display: "flex", gap: 8, alignItems: "flex-end", marginTop: 18 }}>
+                <div style={{ display: "flex", gap: 10, flexWrap: "wrap", width: "100%" }}>
                   <button
                     onClick={() => setActiveEscrowAddr(searchEscrowInput.trim())}
-                    className="btn-pill-solid"
-                    style={{ padding: "10px 20px", fontSize: 12 }}
+                    className="btn-pill-solid flex-1 sm:flex-initial"
+                    style={{ padding: "10px 22px", fontSize: 12, justifyContent: "center" }}
                   >
                     LOAD ESCROW
                   </button>
@@ -802,8 +802,8 @@ function VaultContent() {
                       setSearchEscrowInput(KNOWN_DEVNET_ESCROW);
                       setActiveEscrowAddr(KNOWN_DEVNET_ESCROW);
                     }}
-                    className="btn-pill-glass"
-                    style={{ padding: "10px 14px", fontSize: 11, color: "#3ECBFF" }}
+                    className="btn-pill-glass flex-1 sm:flex-initial"
+                    style={{ padding: "10px 16px", fontSize: 11, color: "#3ECBFF", justifyContent: "center" }}
                     title="Load verified Devnet sample escrow"
                   >
                     Sample Escrow
@@ -957,15 +957,19 @@ function VaultContent() {
                             background: step.active ? "rgba(0, 163, 255, 0.1)" : "rgba(255, 255, 255, 0.03)",
                             border: `1px solid ${step.active ? "#3ECBFF" : "rgba(255, 255, 255, 0.08)"}`,
                             borderRadius: 8,
-                            padding: "10px 12px",
+                            padding: "8px 6px",
                             textAlign: "center",
                           }}
                         >
                           <span
                             style={{
-                              fontSize: 11,
+                              fontSize: "clamp(10px, 2.6vw, 11px)",
                               fontWeight: 500,
                               color: step.active ? "#FFFFFF" : "#526B8E",
+                              display: "block",
+                              whiteSpace: "nowrap",
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
                             }}
                           >
                             {step.label}

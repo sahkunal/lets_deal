@@ -288,7 +288,7 @@ export default function ExplorePage() {
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>
           <div
             className="panel-glass"
-            style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 18px", flex: 1, minWidth: 260 }}
+            style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 18px", flex: 1, minWidth: "min(100%, 240px)" }}
           >
             <Search size={14} strokeWidth={1.5} color="#8BA3C7" />
             <input
@@ -315,31 +315,44 @@ export default function ExplorePage() {
             )}
           </div>
 
-          {["All", "Active", "Completed", "Refunded"].map((f) => (
-            <button
-              key={f}
-              onClick={() => setSelectedFilter(f)}
-              className={selectedFilter === f ? "btn-solana-primary" : "btn-solana-secondary"}
-              style={{
-                fontSize: 12,
-                padding: selectedFilter === f ? "6px 14px" : "6px 16px",
-                height: 36,
-                cursor: "pointer",
-              }}
-            >
-              {f}
-            </button>
-          ))}
-
-          <button
-            onClick={loadOnChainEscrows}
-            className="btn-pill-glass"
-            style={{ fontSize: 11, padding: "8px 14px", display: "flex", alignItems: "center", gap: 6 }}
-            title="Refresh from Solana Devnet"
+          <div
+            style={{
+              display: "flex",
+              gap: 8,
+              alignItems: "center",
+              overflowX: "auto",
+              maxWidth: "100%",
+              scrollbarWidth: "none",
+            }}
           >
-            <RefreshCw size={12} className={loading ? "animate-spin" : ""} />
-            Sync RPC
-          </button>
+            {["All", "Active", "Completed", "Refunded"].map((f) => (
+              <button
+                key={f}
+                onClick={() => setSelectedFilter(f)}
+                className={selectedFilter === f ? "btn-solana-primary" : "btn-solana-secondary"}
+                style={{
+                  fontSize: 12,
+                  padding: selectedFilter === f ? "6px 14px" : "6px 16px",
+                  height: 36,
+                  cursor: "pointer",
+                  whiteSpace: "nowrap",
+                  flexShrink: 0,
+                }}
+              >
+                {f}
+              </button>
+            ))}
+
+            <button
+              onClick={loadOnChainEscrows}
+              className="btn-pill-glass"
+              style={{ fontSize: 11, padding: "8px 14px", display: "flex", alignItems: "center", gap: 6, whiteSpace: "nowrap", flexShrink: 0 }}
+              title="Refresh from Solana Devnet"
+            >
+              <RefreshCw size={12} className={loading ? "animate-spin" : ""} />
+              Sync RPC
+            </button>
+          </div>
         </div>
       </div>
 
@@ -367,7 +380,7 @@ export default function ExplorePage() {
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 300px), 1fr))",
+              gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))",
               gap: 16,
             }}
           >
@@ -376,7 +389,7 @@ export default function ExplorePage() {
                 <div
                   className="panel-glass"
                   style={{
-                    padding: 26,
+                    padding: "clamp(18px, 4vw, 26px)",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "space-between",

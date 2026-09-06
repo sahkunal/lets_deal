@@ -24,9 +24,8 @@ export default function SubpageVideoBackground() {
     >
       {/* 
         Video is natively 9:16 vertical (612x1088).
-        Rotating it horizontally transforms it into a 16:9 widescreen landscape presentation.
-        Using 100vh width x 100vw height ensures the rotated element spans edge-to-edge
-        with zero letterboxing, maximum sharpness, and GPU acceleration.
+        On mobile/portrait: plays in native vertical orientation (no rotation).
+        On desktop/widescreen landscape: rotated 90deg to span 16:9 widescreen edge-to-edge.
       */}
       <video
         autoPlay
@@ -35,24 +34,7 @@ export default function SubpageVideoBackground() {
         playsInline
         preload="auto"
         src="/bg-subpage.mp4"
-        style={{
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          width: "100vh",
-          height: "100vw",
-          minWidth: "100vh",
-          minHeight: "100vw",
-          transform: "translate(-50%, -50%) rotate(90deg) scale(1.02)",
-          objectFit: "cover",
-          objectPosition: "center",
-          opacity: 0.65,
-          filter: "contrast(1.18) brightness(1.04) saturate(1.15)",
-          backfaceVisibility: "hidden",
-          WebkitBackfaceVisibility: "hidden",
-          transformStyle: "preserve-3d",
-          willChange: "transform",
-        }}
+        className="subpage-video-element"
       />
 
       {/* Cinematic ambient glass vignette to protect UI text readability while letting the visual shine */}
